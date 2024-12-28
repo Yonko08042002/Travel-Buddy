@@ -12,3 +12,16 @@ export const createPurchase = async (purchase: InsertPurchase) => {
     throw new Error("Failed to create purchase");
   }
 };
+export const getPurchaseByIdUser = async (UserId: string) => {
+  const purchaseRepository = getInjection("IPurchaseRepository");
+  try {
+    const purchase = await purchaseRepository.getPurchaseByIdUser(UserId);
+    if (!purchase) {
+      throw new Error("Purchase not found");
+    }
+    return purchase;
+  } catch (error) {
+    console.error("Error retrieving purchase:", error);
+    throw new Error("Failed to retrieve purchase");
+  }
+};

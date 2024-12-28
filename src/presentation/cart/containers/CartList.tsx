@@ -13,7 +13,6 @@ interface CartItem {
   description?: string | undefined;
   price?: number | undefined;
   duration?: number | undefined;
-  tourType?: TourStyle;
   tourStyleId?: string | undefined;
   timeStart?: Date;
 }
