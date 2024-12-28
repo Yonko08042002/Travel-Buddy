@@ -1,0 +1,223 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table BaiVietTb {
+  id String [pk]
+  name String [not null]
+  image String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  description String [not null]
+  blogCategories DanhMuc_BaiViet [not null]
+}
+
+Table DanhMuc_BaiViet {
+  blogId String [not null]
+  categoryId String [not null]
+  blog BaiVietTb [not null]
+  category DanhMuc [not null]
+
+  indexes {
+    (categoryId, blogId) [pk]
+  }
+}
+
+Table NguoiDungTb {
+  id String [pk]
+  email String [unique, not null]
+  password String [not null]
+  name String
+  avatar String
+  stripeCustomerId String
+  carts DonDatTourTb [not null]
+  userRoles NguoiDung_VaiTro [not null]
+  purchases DonThanhToan [not null]
+}
+
+Table DonDatTourTb {
+  id String [pk]
+  userId String [unique, not null]
+  user NguoiDungTb [not null]
+  cartTours ChiTietDonDatTourTb [not null]
+}
+
+Table ChiTietDonDatTourTb {
+  cartId String [not null]
+  tourId String [not null]
+  amount Int
+  cart DonDatTourTb [not null]
+  tour TourTb [not null]
+
+  indexes {
+    (cartId, tourId) [pk]
+  }
+}
+
+Table TourTb {
+  id String [pk]
+  image String [not null]
+  title String [not null]
+  description String [not null]
+  duration Int [not null]
+  price Int [not null]
+  timeStart DateTime
+  tourType TourType [not null, default: 'DailyTour']
+  cartTours ChiTietDonDatTourTb [not null]
+  tourPromotions tour_KhuyenMai [not null]
+  tourStyleId String [not null]
+  tourStyle KieuTour [not null]
+  tourDestinations tour_DiaDiem [not null]
+  purchases DonThanhToan [not null]
+}
+
+Table DonThanhToan {
+  id String [pk]
+  userId String [not null]
+  tourId String [not null]
+  amount Int [not null]
+  user NguoiDungTb [not null]
+  tour TourTb [not null]
+  createdAt DateTime [default: `now()`, not null]
+  stripePurchaseId String [not null]
+}
+
+Table DanhMuc {
+  id String [pk]
+  name String [not null]
+  blogCategories DanhMuc_BaiViet [not null]
+}
+
+Table DiaDiem {
+  id String [pk]
+  image String [not null]
+  title String [not null]
+  description String [not null]
+  tourDestinations tour_DiaDiem [not null]
+}
+
+Table QuyenTb {
+  id String [pk]
+  name String [not null]
+  slug String [not null]
+  rolePermissions ChiTietVaiTro [not null]
+}
+
+Table KhuyenMai {
+  id String [pk]
+  name String [not null]
+  description String
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  discountPercentage Decimal [not null]
+  tourPromotions tour_KhuyenMai [not null]
+}
+
+Table DanhGia {
+  id String [pk]
+  authorName String [not null]
+  authorAvatar String
+  text String [not null]
+  rating Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+}
+
+Table VaiTroTb {
+  id String [pk]
+  name String [not null]
+  rolePermissions ChiTietVaiTro [not null]
+  userRoles NguoiDung_VaiTro [not null]
+}
+
+Table ChiTietVaiTro {
+  roleId String [not null]
+  permissionId String [not null]
+  permission QuyenTb [not null]
+  role VaiTroTb [not null]
+
+  indexes {
+    (permissionId, roleId) [pk]
+  }
+}
+
+Table KieuTour {
+  id String [pk]
+  name String [not null]
+  tours TourTb [not null]
+}
+
+Table tour_DiaDiem {
+  tourId String [not null]
+  destinationId String [not null]
+  tour TourTb [not null]
+  destination DiaDiem [not null]
+
+  indexes {
+    (destinationId, tourId) [pk]
+  }
+}
+
+Table tour_KhuyenMai {
+  tourId String [not null]
+  promotionId String [not null]
+  tour TourTb [not null]
+  promotion KhuyenMai [not null]
+
+  indexes {
+    (promotionId, tourId) [pk]
+  }
+}
+
+Table NguoiDung_VaiTro {
+  userId String [not null]
+  roleId String [not null]
+  role VaiTroTb [not null]
+  user NguoiDungTb [not null]
+
+  indexes {
+    (userId, roleId) [pk]
+  }
+}
+
+Table video {
+  id String [pk]
+  name String [not null]
+  link String [not null]
+}
+
+Enum TourType {
+  PackageTour
+  DailyTour
+  TailorMadeTour
+}
+
+Ref: DanhMuc_BaiViet.blogId > BaiVietTb.id
+
+Ref: DanhMuc_BaiViet.categoryId > DanhMuc.id
+
+Ref: DonDatTourTb.userId > NguoiDungTb.id [delete: Cascade]
+
+Ref: ChiTietDonDatTourTb.cartId > DonDatTourTb.id
+
+Ref: ChiTietDonDatTourTb.tourId > TourTb.id
+
+Ref: TourTb.tourStyleId > KieuTour.id
+
+Ref: DonThanhToan.userId > NguoiDungTb.id
+
+Ref: DonThanhToan.tourId > TourTb.id
+
+Ref: ChiTietVaiTro.permissionId > QuyenTb.id
+
+Ref: ChiTietVaiTro.roleId > VaiTroTb.id
+
+Ref: tour_DiaDiem.tourId > TourTb.id
+
+Ref: tour_DiaDiem.destinationId > DiaDiem.id
+
+Ref: tour_KhuyenMai.tourId > TourTb.id
+
+Ref: tour_KhuyenMai.promotionId > KhuyenMai.id
+
+Ref: NguoiDung_VaiTro.roleId > VaiTroTb.id
+
+Ref: NguoiDung_VaiTro.userId > NguoiDungTb.id

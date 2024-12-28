@@ -1,0 +1,84 @@
+{
+  "TourList": {
+    "title": "Booking with",
+    "explore": "Explore Our Top Tours"
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, vi { Vietnamese } en { English } other {Unbekannt}}"
+  },
+  "About": {
+    "title": "About Travel Buddy",
+    "passage_one": "Travel Buddy is a young and dynamic DMC in Vietnam founded in September 2023, primarily operating in international and domestic travel and tourism services.",
+    "passage_two": "We possess a young, sensitive workforce with current trends and high expertise, so we are poised to offer more engaging and fulfilling travel experiences than ever.",
+    "Destinations": "Destinations",
+    "Tourists_per_year": "Tourists per year",
+    "Partners": "Partners"
+  },
+  "our_service": {
+    "OUR_SERVICE": "OUR SERVICE",
+    "title": "What you can expect from us"
+  },
+  "BlogList": {
+    "title": "Travel Buddy Blog",
+    "explore": "Discover the thrill of your next adventure! Gather inspiration, pack your luggage, gain valuable experiences, and update your information to transform your upcoming trips into unforgettable journeys!"
+  },
+  "OurSustainabilityMission": {
+    "title": "OUR SUSTAINABILITY MISSION",
+    "passage_one": " Everyone has their dreamland, and Travel Buddy is no exception.",
+    "passage_two": " With a strong desire to create a dreamland filled with wonderful experiences for our customers, employees, partners, and the community, the \"Road to the Dreamland\" fund was found.",
+    "passage_three": "\"Road to the Dreamland\" is a fund allocated by Travel Buddy from a portion of our business profits for CSR (Corporate Social Responsibility) programs. Each year, this fund will be utilized to execute charity programs or contribute to environmental protection, sustainable economic development, and more."
+  },
+  "Menu": {
+    "home": "Home",
+    "tours": "Tours",
+    "mice": "M.I.C.E",
+    "services": " Services",
+    "blog": "Blog",
+    "about_us": "About us",
+    "membership": "Membership"
+  },
+  "Introduction": {
+    "title1": "A colorful experience ",
+    "title2": "with us in Vietnam"
+  },
+  "Best_seller_tours": {
+    "title": "BEST SELLER TOURS",
+    "description": "Find your place on the coast, in the mountain or in the city."
+  },
+  "Cart_tour": {
+    "Amount": "Amount",
+    "pax": "pax",
+    "Detail_of": "Detail of"
+  },
+  "Profile": {
+    "title": "User Profile",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "client": "client"
+  },
+
+  "buttonWeb": {
+    "book_now": "Book Now",
+    "contact_us": "Contact us",
+    "promotion_tour": " Promotion Tour",
+    "read_more": "Read more",
+    "check_out": "Check out",
+    "Place_order": "Place order ",
+    "search": "Search",
+    "profile": "Profile ",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "placing": "placing",
+    "More_detail": "More detail ",
+    "Add_new": "Add New"
+  },
+  "Data_table": {
+    "Filter": "Filter",
+    "Previous": "Previous",
+    "Next": "Next",
+    "row": "row"
+  }
+}

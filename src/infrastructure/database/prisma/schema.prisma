@@ -1,0 +1,246 @@
+generator kysely {
+  provider  = "prisma-kysely"
+  output    = "./"
+  fileName  = "kysely.ts"
+  camelCase = "true"
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../../../../node_modules/.prisma/client"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output   = "../diagrams"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String          @map("TenBaiViet") 
+  image          String         @map("HinhAnh") 
+createdAt        DateTime @map("NgayTao")  @default(now())
+  description   String @map("MoTa") 
+  blogCategories BlogCategory[]
+
+  @@map("BaiVietTb")
+}
+
+model BlogCategory {
+  blogId     String   @map("IdBaiViet") @db.Uuid
+  categoryId String   @map("IdDanhMuc") @db.Uuid
+  blog       Blog     @relation(fields: [blogId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([categoryId, blogId], map: "blog_category_category_id_blog_id_pk")
+  @@map("DanhMuc_BaiViet")
+}
+
+model User {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email    String @map("Email") @unique
+  password String @map("MatKhau") 
+  name     String? @map("TenNguoiDung")
+  avatar   String?  @map("AnhDaiDien") 
+  stripeCustomerId String? @map("stripe_KhachHang_id")
+  carts    Cart[] // One-to-many relationship with Cart
+
+  userRoles UserRole[]
+  purchases Purchase[]
+
+  @@index([stripeCustomerId], name: "user_stripe_customer_id_idx")
+  @@map("NguoiDungTb")
+}
+
+model Cart {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @map("IdNguoiDung") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartTours CartTour[]
+
+  @@unique([userId], name: "unique_user_cart") // Một người dùng chỉ có một giỏ hàng
+  @@map("DonDatTourTb")
+}
+model CartTour {
+  cartId String @map("id") @db.Uuid
+  tourId String @map("IdTour") @db.Uuid
+  amount Int?
+
+  cart Cart @relation(fields: [cartId], references: [id])
+  tour Tour @relation(fields: [tourId], references: [id])
+
+  @@id([cartId, tourId], map: "cart_tour_cart_id_tour_id_pk")
+  @@map("ChiTietDonDatTourTb")
+}
+
+model Tour {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image       String @map("HinhAnh") 
+  title       String @map("TenTour") 
+  description String  @map("MoTa") 
+  duration    Int @map("ThoiGian") 
+  price       Int @map("GiaTour")
+  timeStart   DateTime? @map("NgayBatDau")
+  tourType    TourType   @default(DailyTour) @map("LoaiTour") 
+  cartTours   CartTour[] 
+  tourPromotions TourPromotion[]
+  tourStyleId String    @map("Kieu_tour_id") @db.Uuid
+  tourStyle   TourStyle @relation(fields: [tourStyleId], references: [id]) 
+  tourDestinations TourDestination[]
+  purchases        Purchase[]
+
+  @@map("TourTb")
+}
+
+model Purchase {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("IdNguoiDung") @db.Uuid
+  tourId String @map("IdTour") @db.Uuid
+
+  amount Int @map("SoLuong")
+
+  user User @relation(fields: [userId], references: [id])
+  tour Tour @relation(fields: [tourId], references: [id])
+  createdAt        DateTime @map("NgayTao")  @default(now())
+  stripePurchaseId String   @map("stripe_purchase_id")
+
+  @@index([userId, tourId], name: "purchase_user_id_tour_id_idx")
+  @@map("DonThanhToan")
+}
+
+model Category {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String @map("TenDanhMuc")
+  blogCategories BlogCategory[]
+
+  @@map("DanhMuc")
+}
+
+model Destination {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image            String @map("HinhAnh")
+  title            String @map("TenDiaDiem")
+  description      String @map("MoTa")
+  tourDestinations TourDestination[]
+
+  @@map("DiaDiem")
+}
+
+model Permission {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String @map("TenQuyen")
+  slug            String @map("SlugQuyen")
+  rolePermissions RolePermission[]
+
+  @@map("QuyenTb")
+}
+
+model Promotion {
+  id                 String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String @map("TenKhuyenMai")
+  description        String? @map("MoTaKhuyenMai")
+  startDate          DateTime        @map("NgayBatDau") @db.Date
+  endDate            DateTime        @map("NgayKetThuc") @db.Date
+  discountPercentage Decimal         @map("discount_percentage") @db.Decimal(5, 2)
+  tourPromotions     TourPromotion[]
+
+  @@map("KhuyenMai")
+}
+
+model Review {
+  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  authorName   String @map("TenTacGia")
+  authorAvatar String? @map("HinhAnhTacGia")
+  text         String @map("NoiDung")
+  rating       Int @map("DanhGia")
+ createdAt        DateTime @map("NgayTao")  @default(now())
+
+  @@map("DanhGia")
+}
+
+model Role {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String @map("TenVaiTro")
+  rolePermissions RolePermission[] 
+  userRoles       UserRole[]
+
+  @@map("VaiTroTb")
+}
+
+model RolePermission {
+  roleId       String     @map("IdVaitro") @db.Uuid
+  permissionId String     @map("IdQuyen") @db.Uuid
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  role         Role       @relation(fields: [roleId], references: [id])
+
+  @@id([permissionId, roleId], map: "role_permission_permission_id_role_id_pk")
+  @@map("ChiTietVaiTro")
+}
+
+
+
+model TourStyle {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  name String @map("TenKieuDuLich")
+
+  tours Tour[]
+
+  @@map("KieuTour")
+}
+
+model TourDestination {
+  tourId        String      @map("tour_id") @db.Uuid
+  destinationId String      @map("DiaDiem_id") @db.Uuid
+  tour          Tour        @relation(fields: [tourId], references: [id])
+  destination   Destination @relation(fields: [destinationId], references: [id])
+
+  @@id([destinationId, tourId], map: "tour_destination_destination_id_tour_id_pk")
+  @@map("tour_DiaDiem")
+}
+
+model TourPromotion {
+  tourId      String    @map("tour_id") @db.Uuid
+  promotionId String    @map("KhuyenMai_id") @db.Uuid
+  tour        Tour      @relation(fields: [tourId], references: [id])
+  promotion   Promotion @relation(fields: [promotionId], references: [id])
+
+  @@id([promotionId, tourId], map: "tour_promotion_promotion_id_tour_id_pk")
+  @@map("tour_KhuyenMai")
+}
+
+
+
+model UserRole {
+  userId String @map("IdNguoiDung") @db.Uuid
+  roleId String @map("IdVaiTro") @db.Uuid
+  role   Role   @relation(fields: [roleId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@id([userId, roleId], map: "user_role_user_id_role_id_pk")
+  @@map("NguoiDung_VaiTro")
+}
+
+model Video {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name String @map("TenVideo")
+  link String @map("LinkVideo")
+
+  @@map("video")
+}
+
+enum TourType {
+  PackageTour 
+  DailyTour 
+  TailorMadeTour 
+
+  @@map("tour_Kieu")
+}
+
+
