@@ -13,7 +13,6 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
     type: "success" | "error";
     text: string;
   } | null>(null);
-  const t = useTranslations();
 
   const {
     register,
