@@ -1,11 +1,11 @@
-import { getCartToursByUserId } from "application/use-cases/cart";
-import { getTourById } from "application/use-cases/tour";
-import { getMe } from "application/use-cases/user";
-import { Checkout } from "presentation/checkout/containers/Checkout";
-import { internalServerErrorResponse } from "shared/helpers/response";
+import { getCartToursByUserId } from 'application/use-cases/cart';
+import { getTourById } from 'application/use-cases/tour';
+import { getMe } from 'application/use-cases/user';
+import { Checkout } from 'presentation/checkout/containers/Checkout';
+import { internalServerErrorResponse } from 'shared/helpers/response';
 
 export const metadata = {
-  title: "Checkout Page",
+  title: 'Checkout Page'
 };
 
 export default async function CheckoutPage() {
@@ -15,7 +15,7 @@ export default async function CheckoutPage() {
   const carts = await getCartToursByUserId(me.id);
 
   if (!carts) {
-    return internalServerErrorResponse("No tours selected for payment");
+    return internalServerErrorResponse('No tours selected for payment');
   }
 
   const listTour = await Promise.all(
@@ -23,7 +23,7 @@ export default async function CheckoutPage() {
       const tour = await getTourById(cart.tourId);
       return {
         ...tour,
-        amount: cart.amount,
+        amount: cart.amount
       };
     })
   );

@@ -53,7 +53,7 @@ model User {
 
   userRoles UserRole[]
   purchases Purchase[]
-
+  reviews Review[]
   @@index([stripeCustomerId], name: "user_stripe_customer_id_idx")
   @@map("NguoiDungTb")
 }
@@ -94,8 +94,19 @@ model Tour {
   tourStyle   TourStyle @relation(fields: [tourStyleId], references: [id]) 
   tourDestinations TourDestination[]
   purchases        Purchase[]
-
+  reviews     Review[]
   @@map("TourTb")
+}
+model Review {
+  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  text         String  @map("NoiDung")
+  rating       Int    @map("DanhGia") @default(0)
+  createdAt    DateTime @map("NgayTao")  @default(now())
+  userId       String   @map("NguoiDung_id") @db.Uuid
+  tourId String @map("IdTour") @db.Uuid
+  user         User     @relation(fields: [userId], references: [id])
+  tour         Tour     @relation(fields: [tourId], references: [id])
+  @@map("DanhGia")
 }
 
 model Purchase {
@@ -153,16 +164,7 @@ model Promotion {
   @@map("KhuyenMai")
 }
 
-model Review {
-  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  authorName   String @map("TenTacGia")
-  authorAvatar String? @map("HinhAnhTacGia")
-  text         String @map("NoiDung")
-  rating       Int @map("DanhGia")
- createdAt        DateTime @map("NgayTao")  @default(now())
 
-  @@map("DanhGia")
-}
 
 model Role {
   id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid

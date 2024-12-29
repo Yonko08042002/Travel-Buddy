@@ -1,7 +1,7 @@
-import ProfileUser from "presentation/profile/containers/ProfileUser";
+import ProfileUser from 'presentation/profile/containers/ProfileUser';
 
 export const metadata = {
-  title: "profile",
+  title: 'profile'
 };
 
 export default function ProfilePage() {

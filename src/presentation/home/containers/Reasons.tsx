@@ -1,39 +1,37 @@
 import { MedalIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { configs } from 'shared/lib/constant';
 
-const reasons = [
-  {
-    id: 'Support',
-    title: '24/7 support',
-    image: configs.OUR_SERVICE.icon.icon1,
-    description:
-      ' Always ready to support whenever you need to ensure a seamless and colorful experience.'
-  },
-  {
-    id: 'Flexible_payment',
-    title: 'Flexible payment',
-    image: configs.OUR_SERVICE.icon.icon2,
-    description:
-      ' Whatever your style, enjoy a flawless trip with excellent accommodations at competitive prices.'
-  },
-  {
-    id: 'Service Quality',
-    title: 'Service Quality',
-    image: configs.OUR_SERVICE.icon.icon3,
-    description:
-      ' Prioritize our services and stay updated with trends to enhance quality. Trust us for a satisfying trip!'
-  },
-  {
-    id: 'Flexibility',
-    title: 'Flexibility',
-    image: configs.OUR_SERVICE.icon.icon4,
-    description:
-      ' Personalizing your trip to fit your budget and desires has never been easier!'
-  }
-];
-
 export default function Reasons() {
+  const t = useTranslations('reasons');
+  const reasons = [
+    {
+      id: 'Support',
+      title: t('24/7_support.title'),
+      image: configs.OUR_SERVICE.icon.icon1,
+      description: t('24/7_support.description')
+    },
+    {
+      id: 'Flexible_payment',
+      title: t('Flexible_payment.title'),
+      image: configs.OUR_SERVICE.icon.icon2,
+      description: t('Flexible_payment.description')
+    },
+    {
+      id: 'Service Quality',
+      title: t('Service_Quality.title'),
+      image: configs.OUR_SERVICE.icon.icon3,
+      description: t('Service_Quality.description')
+    },
+    {
+      id: 'Flexibility',
+      title: t('Flexibility.title'),
+      image: configs.OUR_SERVICE.icon.icon4,
+      description: t('Flexibility.description')
+    }
+  ];
+
   return (
     <section className='  mx-auto bg-[#EBF0F8] '>
       <Image

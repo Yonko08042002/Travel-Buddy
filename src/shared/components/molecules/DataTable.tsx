@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   type ColumnDef,
@@ -7,8 +7,8 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   type SortingState,
-  useReactTable,
-} from "@tanstack/react-table";
+  useReactTable
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -16,13 +16,13 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "shared/components/atoms/table";
-import { Input } from "shared/components/atoms/input";
-import { Button } from "shared/components/atoms/button";
-import { ScrollArea, ScrollBar } from "shared/components/atoms/scroll-area";
-import React from "react";
-import { useTranslations } from "next-intl";
+  TableRow
+} from 'shared/components/atoms/table';
+import { Input } from 'shared/components/atoms/input';
+import { Button } from 'shared/components/atoms/button';
+import { ScrollArea, ScrollBar } from 'shared/components/atoms/scroll-area';
+import React from 'react';
+import { useTranslations } from 'next-intl';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,7 +33,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  searchKey,
+  searchKey
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -49,23 +49,23 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
-      columnFilters,
-    },
+      columnFilters
+    }
   });
   return (
     <>
       {searchKey && (
         <Input
-          placeholder={`${t("Data_table.Filter")} ${searchKey}...`}
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) || ""}
+          placeholder={`${t('Data_table.Filter')} ${searchKey}...`}
+          value={(table.getColumn(searchKey)?.getFilterValue() as string) || ''}
           onChange={(event) => {
             table.getColumn(searchKey)?.setFilterValue(event.target.value);
           }}
-          className="max-w-sm my-4 "
+          className='max-w-sm my-4 '
         />
       )}
-      <ScrollArea className="h-[calc(80vh-220px)] rounded-md border">
-        <Table className="relative">
+      <ScrollArea className='h-[calc(80vh-220px)] rounded-md border'>
+        <Table className='relative'>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -119,29 +119,29 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <ScrollBar orientation="horizontal" />
+        <ScrollBar orientation='horizontal' />
       </ScrollArea>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='flex-1 text-sm text-muted-foreground'>
           {/* {table.getFilteredSelectedRowModel().rows.length} of{" "} */}
-          {table.getFilteredRowModel().rows.length} {t("Data_table.row")}(s)
+          {table.getFilteredRowModel().rows.length} {t('Data_table.row')}(s)
         </div>
-        <div className="space-x-2">
+        <div className='space-x-2'>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            {t("Data_table.Previous")}
+            {t('Data_table.Previous')}
           </Button>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            {t("Data_table.Next")}
+            {t('Data_table.Next')}
           </Button>
         </div>
       </div>

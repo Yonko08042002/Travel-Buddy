@@ -1,80 +1,105 @@
 {
-  "TourList": {
-    "title": "Khám phá với",
-    "explore": "Khám phá các tour hàng đầu"
-  },
-  "LocaleSwitcher": {
-    "locale": "{locale, select, vi { Tiếng Việt } en { Tiêng Anh } other {Unbekannt}}"
-  },
-  "About": {
-    "title": "Giới thiệu về Travel Buddy",
-    "passage_one": "Travel Buddy là công ty DMC trẻ và năng động tại Việt Nam được thành lập vào tháng 9 năm 2023, chủ yếu hoạt động trong lĩnh vực dịch vụ lữ hành và du lịch quốc tế và trong nước.",
-    "passage_two": "Chúng tôi sở hữu lực lượng lao động trẻ, nhạy bén với xu hướng hiện tại và trình độ chuyên môn cao, vì vậy chúng tôi sẵn sàng mang đến những trải nghiệm du lịch hấp dẫn và trọn vẹn hơn bao giờ hết.",
-    "Destinations": "Điểm đến",
-    "Tourists_per_year": "Khách du lịch mỗi năm",
-    "Partners": "Đối tác"
-  },
-  "BlogList": {
-    "title": "Bài đăng Travel Buddy",
-    "explore": "Khám phá sự hồi hộp của cuộc phiêu lưu tiếp theo của bạn! Thu thập cảm hứng, đóng gói hành lý, tích lũy những trải nghiệm quý giá và cập nhật thông tin của bạn để biến những chuyến đi sắp tới thành những hành trình khó quên!"
-  },
-  "OurSustainabilityMission": {
-    "title": "SỨ MỆNH BỀN VỮNG CỦA CHÚNG TÔI",
-    "passage_one": " Mọi người đều có vùng đất mơ ước của mình và Travel Buddy cũng không ngoại lệ.",
-    "passage_two": " Với mong muốn mạnh mẽ tạo ra một vùng đất mơ ước tràn ngập những trải nghiệm tuyệt vời cho khách hàng, nhân viên, đối tác và cộng đồng của chúng tôi, quỹ \"Road to the Dreamland\" đã được thành lập.",
-    "passage_three": "\"Road to the Dreamland\" là quỹ được Travel Buddy phân bổ từ một phần lợi nhuận kinh doanh của chúng tôi cho các chương trình CSR (Trách nhiệm xã hội của doanh nghiệp). Hàng năm, quỹ này sẽ được sử dụng để thực hiện các chương trình từ thiện hoặc đóng góp để bảo vệ môi trường, phát triển kinh tế bền vững và hơn thế nữa."
-  },
-  "Menu": {
-    "home": "Trang chủ",
-    "tours": "Tours",
-    "mice": "M.I.C.E",
-    "services": "Dịch vụ",
-    "blog": "Bài viết",
-    "about_us": "Chúng tôi",
-    "membership": "Thành viên"
-  },
-  "Introduction": {
-    "title1": "Trải nghiệm đa sắc",
-    "title2": "với tôi tại Việt Nam"
-  },
-  "Best_seller_tours": {
-    "title": "TOUR BÁN CHẠY NHẤT",
-    "description": "Tìm nơi nghỉ ngơi của bạn trên bờ biển, trên núi hoặc trong thành phố."
-  },
-  "Cart_tour": {
-    "Amount": "Số lượng",
-    "pax": "Khách",
-    "price": "Giá",
-    "Detail_of": "Chi tiết"
-  },
-  "Profile": {
-    "title": "Thông tin cá nhân",
-    "name": "Ho và tên",
-    "email": "Email",
-    "phone": "So điện thoại",
-    "client": " Khách hàng"
-  },
+	"TourList": {
+		"title": "Khám phá với",
+		"explore": "Khám phá các tour hàng đầu"
+	},
+	"LocaleSwitcher": {
+		"locale": "{locale, select, vi { Tiếng Việt } en { Tiêng Anh } other {Unbekannt}}"
+	},
+	"About": {
+		"title": "Giới thiệu về Travel Buddy",
+		"passage_one": "Travel Buddy là công ty DMC trẻ và năng động tại Việt Nam được thành lập vào tháng 9 năm 2023, chủ yếu hoạt động trong lĩnh vực dịch vụ lữ hành và du lịch quốc tế và trong nước.",
+		"passage_two": "Chúng tôi sở hữu lực lượng lao động trẻ, nhạy bén với xu hướng hiện tại và trình độ chuyên môn cao, vì vậy chúng tôi sẵn sàng mang đến những trải nghiệm du lịch hấp dẫn và trọn vẹn hơn bao giờ hết.",
+		"Destinations": "Điểm đến",
+		"Tourists_per_year": "Khách du lịch mỗi năm",
+		"Partners": "Đối tác"
+	},
+	"BlogList": {
+		"title": "Bài đăng Travel Buddy",
+		"explore": "Khám phá sự hồi hộp của cuộc phiêu lưu tiếp theo của bạn! Thu thập cảm hứng, đóng gói hành lý, tích lũy những trải nghiệm quý giá và cập nhật thông tin của bạn để biến những chuyến đi sắp tới thành những hành trình khó quên!"
+	},
+	"OurSustainabilityMission": {
+		"title": "SỨ MỆNH BỀN VỮNG CỦA CHÚNG TÔI",
+		"passage_one": " Mọi người đều có vùng đất mơ ước của mình và Travel Buddy cũng không ngoại lệ.",
+		"passage_two": " Với mong muốn mạnh mẽ tạo ra một vùng đất mơ ước tràn ngập những trải nghiệm tuyệt vời cho khách hàng, nhân viên, đối tác và cộng đồng của chúng tôi, quỹ \"Road to the Dreamland\" đã được thành lập.",
+		"passage_three": "\"Road to the Dreamland\" là quỹ được Travel Buddy phân bổ từ một phần lợi nhuận kinh doanh của chúng tôi cho các chương trình CSR (Trách nhiệm xã hội của doanh nghiệp). Hàng năm, quỹ này sẽ được sử dụng để thực hiện các chương trình từ thiện hoặc đóng góp để bảo vệ môi trường, phát triển kinh tế bền vững và hơn thế nữa."
+	},
+	"Menu": {
+		"home": "Trang chủ",
+		"tours": "Tours",
+		"mice": "M.I.C.E",
+		"services": "Dịch vụ",
+		"blog": "Bài viết",
+		"about_us": "Chúng tôi",
+		"membership": "Thành viên"
+	},
+	"Introduction": {
+		"title1": "Trải nghiệm đa sắc",
+		"title2": "với tôi tại Việt Nam"
+	},
+	"Best_seller_tours": {
+		"title": "TOUR BÁN CHẠY NHẤT",
+		"description": "Tìm nơi nghỉ ngơi của bạn trên bờ biển, trên núi hoặc trong thành phố."
+	},
+	"reasons": {
+		"title": "DICH VU",
+		"description": "Chúng tôi cam kết tương lai cho khách hàng",
+		"24/7_support": {
+			"title": "Hỗ trợ 24/7",
+			"description": "Luôn sẵn sàng hỗ trợ bất cứ khi nào bạn cần để đảm bảo trải nghiệm liền mạch và đầy màu sắc"
+		},
+		"Flexible_payment": {
+			"title": "Thanh toán linh hoạt",
+			"description": "Dù bạn có phong cách nào, hãy tận hưởng chuyến đi hoàn hảo với chỗ nghỉ tuyệt vời với giá cả cạnh tranh."
+		},
+		"Service_Quality": {
+			"title": "Chất lượng dịch vụ",
+			"description": "Hãy ưu tiên các dịch vụ của chúng tôi và cập nhật xu hướng để nâng cao chất lượng. Hãy tin tưởng chúng tôi để có một chuyến đi thỏa mãn!"
+		},
+		"Flexibility": {
+			"title": "Flexibility",
+			"description": "Việc cá nhân hóa chuyến đi sao cho phù hợp với ngân sách và mong muốn của bạn chưa bao giờ dễ dàng đến thế!"
+		}
+	},
+	"OUR_DESTINATION": {
+		"title": "ĐIểm ĐÉN CỦA CHÚNG TÔI",
+		"title1": "Toàn bộ Việt Nam ở đây"
+	},
+	"Cart_tour": {
+		"Amount": "Số lượng",
+		"pax": "Khách",
+		"price": "Giá",
+		"Detail_of": "Chi tiết",
+		"Note": "Giá có thể thay đổi tùy theo mùa"
+	},
+	"Profile": {
+		"title": "Thông tin cá nhân",
+		"name": "Ho và tên",
+		"email": "Email",
+		"phone": "So điện thoại",
+		"client": " Khách hàng"
+	},
 
-  "buttonWeb": {
-    "book_now": "Đặt ngay",
-    "contact_us": "Liên hệ chúng tôi",
-    "promotion_tour": "Tour khuyến mãi",
-    "read_more": "Đọc thêm",
-    "check_out": "Thanh toán",
-    "Place_order": "Đặt tour",
-    "search": "Tìm kiếm",
-    "profile": "Cá nhân",
-    "login": "Đăng nhập",
-    "register": "Đăng ký",
-    "logout": "Đăng xuất",
-    "placing": "đang đặt",
-    "More_detail": "Chi tiết nhất",
-    "Add_new": "Thêm mới"
-  },
-  "Data_table": {
-    "Filter": "Tìm kiếm",
-    "Previous": "Trang trước",
-    "Next": "Trang sau",
-    "row": "hàng"
-  }
+	"buttonWeb": {
+		"book_now": "Đặt ngay",
+		"contact_us": "Liên hệ chúng tôi",
+		"promotion_tour": "Tour khuyến mãi",
+		"read_more": "Đọc thêm",
+		"check_out": "Thanh toán",
+		"Place_order": "Đặt tour",
+		"search": "Tìm kiếm",
+		"profile": "Cá nhân",
+		"login": "Đăng nhập",
+		"register": "Đăng ký",
+		"logout": "Đăng xuất",
+		"placing": "đang đặt",
+		"More_detail": "Chi tiết nhất",
+		"Add_new": "Thêm mới"
+	},
+	"Data_table": {
+		"Filter": "Tìm kiếm",
+		"Previous": "Trang trước",
+		"Next": "Trang sau",
+		"row": "hàng"
+	}
 }

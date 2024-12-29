@@ -40,11 +40,11 @@ export default function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
             </div>
             <div className='flex  items-center mb-4'>
               <div className='lg:mr-4 mr-1 bg-primary text-white rounded-full h-10 w-10 flex items-center justify-center font-bold'>
-                {review.authorName.charAt(0)}
+                {review.tourId.charAt(0)}
               </div>
               <div className=' text-sm'>
                 <h3 className='lg:text-lg font-semibold text-white'>
-                  {review.authorName}
+                  {review.tourId}
                 </h3>
                 <p className='text-sm text-gray-500'>
                   {dayjs.unix(Number(review.createdAt)).fromNow()}

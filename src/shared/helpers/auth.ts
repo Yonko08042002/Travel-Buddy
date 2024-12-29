@@ -1,50 +1,50 @@
-import type { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GitHubProvider from "next-auth/providers/github";
-import FacebookProvider from "next-auth/providers/facebook";
-import GoogleProvider from "next-auth/providers/google";
-import { comparePassword, hashPassword } from "shared/helpers/hash";
-import config from "shared/lib/config";
-import { LoginSchema } from "application/schemas/login";
-import { getUserByEmail, insertUser } from "application/use-cases/user";
-import stripe from "shared/lib/stripe";
+import type { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GitHubProvider from 'next-auth/providers/github';
+import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
+import { comparePassword, hashPassword } from 'shared/helpers/hash';
+import config from 'shared/lib/config';
+import { LoginSchema } from 'application/schemas/login';
+import { getUserByEmail, insertUser } from 'application/use-cases/user';
+import stripe from 'shared/lib/stripe';
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: "jwt",
+    strategy: 'jwt'
   },
   secret: config.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/login",
-    error: "/login",
+    signIn: '/login',
+    error: '/login'
   },
   callbacks: {
     jwt({ user, token }) {
       token.userRoles = user?.userRoles ?? [];
 
       return token;
-    },
+    }
   },
   providers: [
     GitHubProvider({
       clientId: config.GITHUB_ID,
-      clientSecret: config.GITHUB_SECRET,
+      clientSecret: config.GITHUB_SECRET
     }),
     FacebookProvider({
       clientId: config.FACEBOOK_CLIENT_ID,
-      clientSecret: config.FACEBOOK_CLIENT_SECRET,
+      clientSecret: config.FACEBOOK_CLIENT_SECRET
     }),
     GoogleProvider({
       clientId: config.GOOGLE_ID,
-      clientSecret: config.GOOGLE_SECRET,
+      clientSecret: config.GOOGLE_SECRET
     }),
     CredentialsProvider({
-      id: "credentials",
-      name: "Credentials",
+      id: 'credentials',
+      name: 'Credentials',
       credentials: {
-        name: { label: "Name", type: "text" },
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        name: { label: 'Name', type: 'text' },
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
         try {
@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
           const user = await getUserByEmail(email);
 
           if (!user) {
-            throw new Error("Invalid credentials!");
+            throw new Error('Invalid credentials!');
           }
 
           const isPasswordCorrect = await comparePassword(
@@ -62,28 +62,28 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!isPasswordCorrect) {
-            throw new Error("Invalid credentials!");
+            throw new Error('Invalid credentials!');
           }
 
           return {
             id: user.id,
             name: user.name,
             email: user.email,
-            userRoles: user.userRoles,
+            userRoles: user.userRoles
           };
         } catch (error) {
           if (error instanceof Error) {
-            throw new Error(error.message || "An error occurred!");
+            throw new Error(error.message || 'An error occurred!');
           }
           return null;
         }
-      },
-    }),
+      }
+    })
   ],
   events: {
     async signIn({ user, account }) {
       try {
-        if (account?.type === "credentials" || !user.email) return;
+        if (account?.type === 'credentials' || !user.email) return;
 
         const userToCheck = await getUserByEmail(user.email);
 
@@ -94,20 +94,20 @@ export const authOptions: NextAuthOptions = {
 
           const customer = await stripe.customers.create({
             email: user.email,
-            name: user.name || undefined,
+            name: user.name || undefined
           });
 
           await insertUser({
-            name: user.name || "",
+            name: user.name || '',
             email: user.email,
             password: hashedPassword,
             avatar: user.image,
-            stripeCustomerId: customer.id,
+            stripeCustomerId: customer.id
           });
         }
       } catch (error) {
         console.error(error);
       }
-    },
-  },
+    }
+  }
 };

@@ -1,19 +1,19 @@
 import {
   badRequestResponse,
   internalServerErrorResponse,
-  successResponse,
-} from "shared/helpers/response";
-import { getInjection } from "di/container";
-import { getMe } from "application/use-cases/user";
+  successResponse
+} from 'shared/helpers/response';
+import { getInjection } from 'di/container';
+import { getMe } from 'application/use-cases/user';
 
 export const GET = async () => {
   try {
     const user = await getMe();
 
     if (!user) {
-      return internalServerErrorResponse("User not found");
+      return internalServerErrorResponse('User not found');
     }
-    const cartRepository = getInjection("ICartRepository");
+    const cartRepository = getInjection('ICartRepository');
     const cart = await cartRepository.getCartById(user.id);
 
     return successResponse(cart);
@@ -29,17 +29,17 @@ export const POST = async (req: Request) => {
   try {
     const user = await getMe();
     if (!user) {
-      return internalServerErrorResponse("User not found");
+      return internalServerErrorResponse('User not found');
     }
 
     const body = await req.json();
     const { tourId, amount } = body;
 
-    if (!tourId || typeof amount !== "number" || amount <= 0) {
-      return badRequestResponse("Invalid tourId or amount");
+    if (!tourId || typeof amount !== 'number' || amount <= 0) {
+      return badRequestResponse('Invalid tourId or amount');
     }
 
-    const cartRepository = getInjection("ICartRepository");
+    const cartRepository = getInjection('ICartRepository');
 
     // Add the tour to the cart
     const cartTour = await cartRepository.addTourToCart(
@@ -50,10 +50,10 @@ export const POST = async (req: Request) => {
 
     return successResponse(cartTour);
   } catch (error) {
-    console.error("Error in POST /api/cart:", error);
+    console.error('Error in POST /api/cart:', error);
     if (error instanceof Error) {
       return internalServerErrorResponse(error.message);
     }
-    return internalServerErrorResponse("An unexpected error occurred");
+    return internalServerErrorResponse('An unexpected error occurred');
   }
 };

@@ -1,5 +1,5 @@
-import { getBlogs } from "application/use-cases/blog";
-import BlogsCard from "shared/components/molecules/BlogCard";
+import { getBlogs } from 'application/use-cases/blog';
+import BlogsCard from 'shared/components/molecules/BlogCard';
 import {
   Pagination,
   PaginationContent,
@@ -7,19 +7,19 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
-} from "shared/components/molecules/Pagination";
+  PaginationPrevious
+} from 'shared/components/molecules/Pagination';
 
 export default async function BlogList() {
   const blogs = await getBlogs();
 
   return (
-    <div className="grid gap-6 px-4 md:px-12 py-8 ">
-      <div className="grid gap-6  grid-cols-2 md:grid-cols-4">
-        {" "}
+    <div className='grid gap-6 px-4 md:px-12 py-8 '>
+      <div className='grid gap-6  grid-cols-2 md:grid-cols-4'>
+        {' '}
         {blogs.map((blog) => {
           return (
-            <div className="" key={blog.id}>
+            <div className='' key={blog.id}>
               <BlogsCard blog={blog} />
             </div>
           );
@@ -28,16 +28,16 @@ export default async function BlogList() {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious href='#' />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
+            <PaginationLink href='#'>1</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext href='#' />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

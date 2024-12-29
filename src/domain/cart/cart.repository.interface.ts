@@ -1,4 +1,4 @@
-import type { Cart, CartTour } from "@prisma/client";
+import type { Cart, CartTour } from '@prisma/client';
 
 export interface ICartRepository {
   getCartById(id: string): Promise<Cart | null>;

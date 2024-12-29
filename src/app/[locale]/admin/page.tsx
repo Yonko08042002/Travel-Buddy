@@ -2,20 +2,20 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbList,
-} from "shared/components/atoms/breadcrumb";
+  BreadcrumbList
+} from 'shared/components/atoms/breadcrumb';
 
 export const metadata = {
-  title: "Admin",
+  title: 'Admin'
 };
 
 export default function AdminPage() {
   return (
     <section>
-      <Breadcrumb className="mb-4">
+      <Breadcrumb className='mb-4'>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
+            <BreadcrumbLink href='/admin'>Dashboard</BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

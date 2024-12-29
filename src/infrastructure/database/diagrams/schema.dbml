@@ -32,6 +32,7 @@ Table NguoiDungTb {
   carts DonDatTourTb [not null]
   userRoles NguoiDung_VaiTro [not null]
   purchases DonThanhToan [not null]
+  reviews DanhGia [not null]
 }
 
 Table DonDatTourTb {
@@ -68,6 +69,18 @@ Table TourTb {
   tourStyle KieuTour [not null]
   tourDestinations tour_DiaDiem [not null]
   purchases DonThanhToan [not null]
+  reviews DanhGia [not null]
+}
+
+Table DanhGia {
+  id String [pk]
+  text String [not null]
+  rating Int [not null, default: 0]
+  createdAt DateTime [default: `now()`, not null]
+  userId String [not null]
+  tourId String [not null]
+  user NguoiDungTb [not null]
+  tour TourTb [not null]
 }
 
 Table DonThanhToan {
@@ -110,15 +123,6 @@ Table KhuyenMai {
   endDate DateTime [not null]
   discountPercentage Decimal [not null]
   tourPromotions tour_KhuyenMai [not null]
-}
-
-Table DanhGia {
-  id String [pk]
-  authorName String [not null]
-  authorAvatar String
-  text String [not null]
-  rating Int [not null]
-  createdAt DateTime [default: `now()`, not null]
 }
 
 Table VaiTroTb {
@@ -201,6 +205,10 @@ Ref: ChiTietDonDatTourTb.cartId > DonDatTourTb.id
 Ref: ChiTietDonDatTourTb.tourId > TourTb.id
 
 Ref: TourTb.tourStyleId > KieuTour.id
+
+Ref: DanhGia.userId > NguoiDungTb.id
+
+Ref: DanhGia.tourId > TourTb.id
 
 Ref: DonThanhToan.userId > NguoiDungTb.id
 

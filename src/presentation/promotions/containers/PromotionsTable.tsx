@@ -1,21 +1,21 @@
-"use client";
-import { DataTable } from "shared/components/molecules/DataTable";
-import { Heading } from "shared/components/atoms/heading";
-import { Separator } from "shared/components/atoms/separator";
-import type { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "shared/components/molecules/CellAction";
+'use client';
+import { DataTable } from 'shared/components/molecules/DataTable';
+import { Heading } from 'shared/components/atoms/heading';
+import { Separator } from 'shared/components/atoms/separator';
+import type { ColumnDef } from '@tanstack/react-table';
+import { CellAction } from 'shared/components/molecules/CellAction';
 import {
   deletePromotion,
-  upsertPromotion,
-} from "application/use-cases/promotion";
-import { Button } from "shared/components/atoms/button";
-import { Plus } from "lucide-react";
-import { toast } from "sonner";
-import UpsertPromotionForm from "./UpsertPromotionForm";
-import { useState } from "react";
-import { Prisma, type Promotion } from "@prisma/client";
-import type { AddPromotionInputs } from "domain/promotion/promotion.schema";
-import { useTranslations } from "next-intl";
+  upsertPromotion
+} from 'application/use-cases/promotion';
+import { Button } from 'shared/components/atoms/button';
+import { Plus } from 'lucide-react';
+import { toast } from 'sonner';
+import UpsertPromotionForm from './UpsertPromotionForm';
+import { useState } from 'react';
+import { Prisma, type Promotion } from '@prisma/client';
+import type { AddPromotionInputs } from 'domain/promotion/promotion.schema';
+import { useTranslations } from 'next-intl';
 
 interface ProductsClientProps {
   data: Promotion[];
@@ -32,16 +32,16 @@ export const PromotionsTable = ({ data }: ProductsClientProps) => {
       setLoading(true);
       await upsertPromotion({
         id: selectedColumn?.id,
-        ...data,
+        ...data
       });
 
       toast.success(
         selectedColumn
-          ? "Promotion updated successfully"
-          : "Promotion added successfully"
+          ? 'Promotion updated successfully'
+          : 'Promotion added successfully'
       );
     } catch (_error) {
-      toast.error("Failed to add promotion");
+      toast.error('Failed to add promotion');
     } finally {
       setLoading(false);
       setSelectedColumn(undefined);
@@ -50,62 +50,62 @@ export const PromotionsTable = ({ data }: ProductsClientProps) => {
 
   const columns: ColumnDef<Promotion>[] = [
     {
-      accessorKey: "name",
-      header: "NAME",
+      accessorKey: 'name',
+      header: 'NAME'
     },
     {
-      accessorKey: "startDate",
-      header: "START DATE",
+      accessorKey: 'startDate',
+      header: 'START DATE'
     },
     {
-      accessorKey: "endDate",
-      header: "END DATE",
+      accessorKey: 'endDate',
+      header: 'END DATE'
     },
     {
-      accessorKey: "discountPercentage",
-      header: "DISCOUNT PERCENTAGE",
+      accessorKey: 'discountPercentage',
+      header: 'DISCOUNT PERCENTAGE'
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => (
         <CellAction
           onEdit={() => setSelectedColumn(row.original)}
           onDelete={() => deletePromotion(row.original.id)}
         />
-      ),
-    },
+      )
+    }
   ];
 
   return (
     <div>
-      <div className="flex items-start justify-between">
+      <div className='flex items-start justify-between'>
         <Heading
           title={`Promotions (${data.length})`}
-          description="Manage promotions"
+          description='Manage promotions'
         />
         <Button onClick={() => setSelectedColumn(null)}>
-          <Plus className="mr-2 h-4 w-4" /> {t("buttonWeb.Add_new")}
+          <Plus className='mr-2 h-4 w-4' /> {t('buttonWeb.Add_new')}
         </Button>
       </div>
       <Separator />
       {selectedColumn !== undefined && (
         <UpsertPromotionForm
           defaultValues={{
-            description: selectedColumn?.description ?? "",
-            name: selectedColumn?.name ?? "",
+            description: selectedColumn?.description ?? '',
+            name: selectedColumn?.name ?? '',
             startDate: selectedColumn?.startDate ?? new Date(),
             endDate: selectedColumn?.endDate ?? new Date(),
             discountPercentage:
-              selectedColumn?.discountPercentage ?? new Prisma.Decimal(0.0),
+              selectedColumn?.discountPercentage ?? new Prisma.Decimal(0.0)
           }}
-          title={selectedColumn ? "Edit Promotion" : "Add Promotion"}
+          title={selectedColumn ? 'Edit Promotion' : 'Add Promotion'}
           loading={loading}
           isOpen
           onSubmit={onSubmit}
           onClose={() => setSelectedColumn(undefined)}
         />
       )}
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey='name' columns={columns} data={data} />
     </div>
   );
 };

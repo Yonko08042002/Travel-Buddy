@@ -27,7 +27,7 @@ export const BlogsTable = ({ data }: BlogsClientProps) => {
     undefined
   );
   const [loading, setLoading] = useState(false);
-  const t= useTranslations()
+  const t = useTranslations();
   const onSubmit = async (data: AddBlogSchema) => {
     try {
       setLoading(true);
@@ -93,7 +93,7 @@ export const BlogsTable = ({ data }: BlogsClientProps) => {
       <div className='flex items-start justify-between'>
         <Heading title={`Blogs (${data.length})`} description='Manage blogs' />
         <Button onClick={() => setSelectedColumn(null)}>
-          <Plus className='mr-2 h-4 w-4' /> {t("buttonWeb.Add_new")}
+          <Plus className='mr-2 h-4 w-4' /> {t('buttonWeb.Add_new')}
         </Button>
       </div>
       <Separator />
