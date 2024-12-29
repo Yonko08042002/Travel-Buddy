@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { Textarea } from "shared/components/atoms/textarea";
 import { Label } from "shared/components/atoms/label";
 import StarRating from "../container/StartRating";
