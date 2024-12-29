@@ -1,9 +1,8 @@
-import type { TourStyle } from '@prisma/client';
-import type { ColumnDef } from '@tanstack/react-table';
-import { getPurchaseByIdUser } from 'application/use-cases/purchase';
-import { getTourById } from 'application/use-cases/tour';
-import type { UserWithRoles } from 'application/use-cases/user';
-import { DataTable } from 'shared/components/molecules/DataTable';
+import type { ColumnDef } from "@tanstack/react-table";
+import { getPurchaseByIdUser } from "application/use-cases/purchase";
+import { getTourById } from "application/use-cases/tour";
+import type { UserWithRoles } from "application/use-cases/user";
+import { DataTable } from "shared/components/molecules/DataTable";
 
 interface UserProps {
   user: UserWithRoles | null;
@@ -38,41 +37,41 @@ export default async function PurchaseTable({ user }: UserProps) {
       return {
         ...tour,
         amount: purchase.amount,
-        createdAt: purchase.createdAt
+        createdAt: purchase.createdAt,
       };
     })
   );
 
   const columns: ColumnDef<PurchaseWithTour>[] = [
     {
-      accessorKey: 'title',
-      header: 'Tên tour'
+      accessorKey: "title",
+      header: "Tên tour",
     },
     // {
     //   accessorKey: "image",
     //   header: "Anh",
     // },
     {
-      accessorKey: 'timeStart',
-      header: 'Ngày đi'
+      accessorKey: "timeStart",
+      header: "Ngày đi",
     },
     {
-      accessorKey: 'amount',
-      header: 'Số lượng'
+      accessorKey: "amount",
+      header: "Số lượng",
     },
     {
-      accessorKey: 'price',
-      header: 'Giá'
+      accessorKey: "price",
+      header: "Giá",
     },
     {
-      accessorKey: 'createdAt',
-      header: 'Ngày thanh toán'
-    }
+      accessorKey: "createdAt",
+      header: "Ngày thanh toán",
+    },
   ];
 
   return (
-    <div className='w-full '>
-      <DataTable columns={columns} data={listPurchase} searchKey='title' />
+    <div className="w-full ">
+      <DataTable columns={columns} data={listPurchase} searchKey="title" />
     </div>
   );
 }
