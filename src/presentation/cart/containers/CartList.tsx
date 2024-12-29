@@ -21,6 +21,7 @@ interface CartListProps {
 }
 
 export function CartList({ carts }: CartListProps) {
+  const t = useTranslations();
   if (!carts || carts.length === 0) {
     return (
       <div className="p-8 text-center">
@@ -28,7 +29,6 @@ export function CartList({ carts }: CartListProps) {
       </div>
     );
   }
-  const t = useTranslations();
 
   return (
     <div className="h-screen p-8 flex gap-2">
