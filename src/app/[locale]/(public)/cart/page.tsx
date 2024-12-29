@@ -1,12 +1,11 @@
-import { getCartToursByUserId } from 'application/use-cases/cart';
-import { getTourById } from 'application/use-cases/tour';
-import { getMe } from 'application/use-cases/user';
-import { List } from 'lucide-react';
-import { CartList } from 'presentation/cart/containers/CartList';
-import { internalServerErrorResponse } from 'shared/helpers/response';
+import { getCartToursByUserId } from "application/use-cases/cart";
+import { getTourById } from "application/use-cases/tour";
+import { getMe } from "application/use-cases/user";
+import { CartList } from "presentation/cart/containers/CartList";
+import { internalServerErrorResponse } from "shared/helpers/response";
 
 export const metadata = {
-  title: 'Cart Page'
+  title: "Cart Page",
 };
 
 export default async function CartPage() {
@@ -16,7 +15,7 @@ export default async function CartPage() {
   const carts = await getCartToursByUserId(me.id);
 
   if (!carts) {
-    return internalServerErrorResponse('No tours selected for payment');
+    return internalServerErrorResponse("No tours selected for payment");
   }
 
   const listTour = await Promise.all(
@@ -24,7 +23,7 @@ export default async function CartPage() {
       const tour = await getTourById(cart.tourId);
       return {
         ...tour,
-        amount: cart.amount
+        amount: cart.amount,
       };
     })
   );
