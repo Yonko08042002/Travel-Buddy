@@ -27,7 +27,6 @@ export default async function CartPage() {
       };
     })
   );
-  console.log(listTour);
 
   return <CartList carts={listTour} />;
 }
