@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getMe } from "application/use-cases/user";
 import { getCartToursByUserId } from "application/use-cases/cart";
 import { UserMenu } from "shared/components/organisms/UserMenu";
