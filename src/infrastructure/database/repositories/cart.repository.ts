@@ -1,7 +1,7 @@
-import type { Cart, CartTour } from '@prisma/client';
-import type { ICartRepository } from 'domain/cart/cart.repository.interface';
-import { prisma } from 'infrastructure/database/prisma';
-import { injectable } from 'inversify';
+import type { Cart, CartTour } from "@prisma/client";
+import type { ICartRepository } from "domain/cart/cart.repository.interface";
+import { prisma } from "infrastructure/database/prisma";
+import { injectable } from "inversify";
 
 @injectable()
 export class CartRepository implements ICartRepository {
@@ -15,10 +15,10 @@ export class CartRepository implements ICartRepository {
       include: {
         cartTours: {
           include: {
-            tour: true
-          }
-        }
-      }
+            tour: true,
+          },
+        },
+      },
     });
   }
 
@@ -26,8 +26,8 @@ export class CartRepository implements ICartRepository {
     return prisma.cartTour.findMany({
       where: { cart: { userId } },
       include: {
-        tour: true
-      }
+        tour: true,
+      },
     });
   }
 
@@ -37,20 +37,20 @@ export class CartRepository implements ICartRepository {
     amount: number
   ): Promise<CartTour> {
     let cart = await prisma.cart.findFirst({
-      where: { userId }
+      where: { userId },
     });
 
     if (!cart) {
       cart = await prisma.cart.create({
-        data: { userId }
+        data: { userId },
       });
     }
 
     const existingCartTour = await prisma.cartTour.findFirst({
       where: {
         cartId: cart.id,
-        tourId
-      }
+        tourId,
+      },
     });
 
     if (existingCartTour) {
@@ -58,12 +58,12 @@ export class CartRepository implements ICartRepository {
         where: {
           cartId_tourId: {
             cartId: cart.id,
-            tourId
-          }
+            tourId,
+          },
         },
         data: {
-          amount: (existingCartTour.amount ?? 0) + amount // Cộng thêm số lượng
-        }
+          amount: (existingCartTour.amount ?? 0) + amount,
+        },
       });
     }
 
@@ -71,26 +71,70 @@ export class CartRepository implements ICartRepository {
       data: {
         cartId: cart.id,
         tourId,
-        amount
-      }
+        amount,
+      },
+    });
+  }
+  async updateTourToCart(
+    userId: string,
+    tourId: string,
+    amount: number
+  ): Promise<CartTour> {
+    let cart = await prisma.cart.findFirst({
+      where: { userId },
+    });
+
+    if (!cart) {
+      cart = await prisma.cart.create({
+        data: { userId },
+      });
+    }
+
+    const existingCartTour = await prisma.cartTour.findFirst({
+      where: {
+        cartId: cart.id,
+        tourId,
+      },
+    });
+
+    if (existingCartTour) {
+      return prisma.cartTour.update({
+        where: {
+          cartId_tourId: {
+            cartId: cart.id,
+            tourId,
+          },
+        },
+        data: {
+          amount: 0 + amount,
+        },
+      });
+    }
+
+    return prisma.cartTour.create({
+      data: {
+        cartId: cart.id,
+        tourId,
+        amount,
+      },
     });
   }
 
   async removeTourFromCart(userId: string, tourId: string): Promise<void> {
     // Tìm cart của user
     const cart = await prisma.cart.findFirst({
-      where: { userId }
+      where: { userId },
     });
     if (!cart) {
-      throw new Error('Cart not found');
+      throw new Error("Cart not found");
     }
     await prisma.cartTour.delete({
       where: {
         cartId_tourId: {
           cartId: cart.id,
-          tourId
-        }
-      }
+          tourId,
+        },
+      },
     });
   }
 
@@ -101,23 +145,23 @@ export class CartRepository implements ICartRepository {
   ): Promise<CartTour> {
     // Tìm giỏ hàng của user
     const cart = await prisma.cart.findFirst({
-      where: { userId }
+      where: { userId },
     });
 
     if (!cart) {
-      throw new Error('Cart not found');
+      throw new Error("Cart not found");
     }
 
     // Tìm tour trong giỏ hàng
     const existingCartTour = await prisma.cartTour.findFirst({
       where: {
         cartId: cart.id,
-        tourId
-      }
+        tourId,
+      },
     });
 
     if (!existingCartTour) {
-      throw new Error('Tour not found in cart');
+      throw new Error("Tour not found in cart");
     }
 
     // Cập nhật số lượng (cộng hoặc trừ số lượng tour)
@@ -126,7 +170,7 @@ export class CartRepository implements ICartRepository {
     // Nếu số lượng không hợp lệ (<= 0), xóa tour khỏi giỏ hàng
     if (newAmount <= 0) {
       await this.removeTourFromCart(userId, tourId);
-      throw new Error('Tour removed from cart');
+      throw new Error("Tour removed from cart");
     }
 
     // Cập nhật lại số lượng tour trong giỏ hàng
@@ -134,12 +178,12 @@ export class CartRepository implements ICartRepository {
       where: {
         cartId_tourId: {
           cartId: cart.id,
-          tourId
-        }
+          tourId,
+        },
       },
       data: {
-        amount: newAmount
-      }
+        amount: newAmount,
+      },
     });
   }
 }

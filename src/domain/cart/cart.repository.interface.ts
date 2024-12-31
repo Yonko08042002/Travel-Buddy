@@ -1,4 +1,4 @@
-import type { Cart, CartTour } from '@prisma/client';
+import type { Cart, CartTour } from "@prisma/client";
 
 export interface ICartRepository {
   getCartById(id: string): Promise<Cart | null>;
@@ -9,7 +9,7 @@ export interface ICartRepository {
     amount: number
   ): Promise<CartTour>;
   removeTourFromCart(userId: string, tourId: string): Promise<void>;
-  updateTourAmount(
+  updateTourToCart(
     userId: string,
     tourId: string,
     amount: number
