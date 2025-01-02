@@ -78,8 +78,12 @@ export function Checkout({ items }: CheckoutListProps) {
             <div>
               <h3 className="font-semibold text-lg">{item.title}</h3>
               <p className="text-sm text-gray-600">{item.description}</p>
-              <p>Price: {item.price}</p>
-              <p>Amount: {item.amount}</p>
+              <p>
+                {t("Cart_tour.price")}: {item.price} VND
+              </p>
+              <p>
+                {t("Cart_tour.Amount")}: {item.amount}
+              </p>
             </div>
           </li>
         ))}

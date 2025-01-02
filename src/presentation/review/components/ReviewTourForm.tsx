@@ -8,6 +8,7 @@ import StarRating from "../container/StartRating";
 import { toast } from "sonner";
 import { LoadingButton } from "shared/components/molecules/LoadingButton";
 import { SendHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function ReviewTourForm({ tourId }: { tourId: string }) {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
     type: "success" | "error";
     text: string;
   } | null>(null);
+  const t = useTranslations("review");
 
   const {
     register,
@@ -47,7 +49,7 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
         throw new Error(message || "Something went wrong!");
       }
 
-      setMessage({ type: "success", text: "Review submitted successfully!" });
+      // setMessage({ type: "success", text: "Review submitted successfully!" });
       toast.success("Review submitted successfully!");
       setValue("text", "");
       setValue("rating", 0);
@@ -61,7 +63,7 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
 
   return (
     <div className="p-4 w-full border rounded-md shadow">
-      <h2 className="text-lg font-bold mb-4">Submit Your Review</h2>
+      <h2 className="text-lg font-bold mb-4">{t("title")}</h2>
       {message && (
         <p
           className={`text-sm mb-4 ${
@@ -75,7 +77,7 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="text" className="block text-sm font-medium">
-            Comment:
+            {t("Comment")}:
           </Label>
           <Textarea
             id="text"
@@ -91,7 +93,7 @@ export default function ReviewTourForm({ tourId }: { tourId: string }) {
         <div className="flex justify-between">
           <div>
             <Label htmlFor="rating" className="block text-sm font-medium">
-              Rating (1-5):
+              {t("Ratting")} (1-5):
             </Label>
             <StarRating
               size={20}

@@ -104,39 +104,47 @@ export function CartList({ carts }: CartListProps) {
                 alt={cart.title}
                 className="w-24 h-24 object-cover rounded-md"
               />
-              <div>
-                <h3 className="font-semibold text-lg">{cart.title}</h3>
-                <p className="text-sm text-gray-600">{cart.description}</p>
-                <p>Price: ${cart.price}</p>
-                <div className="flex items-center gap-4">
-                  <Button
-                    type="submit"
-                    onClick={() => changeAmount(-1)}
-                    disabled={loading === cart.id} // Disable khi loading
-                  >
-                    -
-                  </Button>
-
-                  <Input
-                    id="amount"
-                    {...register("amount", {
-                      valueAsNumber: true,
-                      required: "Amount is required",
-                      min: { value: 1, message: "Amount must be at least 1" },
-                    })}
-                    type="number"
-                    disabled={loading === cart.id}
-                  />
-
-                  <Button type="submit" onClick={() => changeAmount(1)}>
-                    +
-                  </Button>
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-2 w-5/6">
+                  {" "}
+                  <h3 className="font-semibold text-lg">{cart.title}</h3>
+                  <p className="text-sm text-gray-600">{cart.description}</p>
                 </div>
-                {formState.errors.amount && (
-                  <p className="text-sm mt-2 text-red-500">
-                    {formState.errors.amount.message}
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center gap-4">
+                    <Button
+                      type="submit"
+                      onClick={() => changeAmount(-1)}
+                      disabled={loading === cart.id} // Disable khi loading
+                    >
+                      -
+                    </Button>
+
+                    <Input
+                      className="w-16 text-center"
+                      id="amount"
+                      {...register("amount", {
+                        valueAsNumber: true,
+                        required: "Amount is required",
+                        min: { value: 1, message: "Amount must be at least 1" },
+                      })}
+                      type="number"
+                      disabled={loading === cart.id}
+                    />
+
+                    <Button type="submit" onClick={() => changeAmount(1)}>
+                      +
+                    </Button>
+                  </div>
+                  <p className="text-red-500">
+                    {t("Cart_tour.price")}: {cart.price} VND
                   </p>
-                )}
+                  {formState.errors.amount && (
+                    <p className="text-sm mt-2 text-red-500">
+                      {formState.errors.amount.message}
+                    </p>
+                  )}
+                </div>
               </div>
             </form>
           );

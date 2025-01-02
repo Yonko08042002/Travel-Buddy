@@ -86,4 +86,3 @@ export const PATCH = async (req: Request) => {
   }
 };
 
-// Hàm kiểm tra dữ liệu đầu vào
