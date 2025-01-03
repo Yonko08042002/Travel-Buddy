@@ -38,6 +38,17 @@
     "about_us": "About us",
     "membership": "Membership"
   },
+  "admin": {
+    "dashboard": "Dashboard",
+    "blogs": "Blogs",
+    "tours": "Tours",
+    "users": "Users",
+    "roles": "Roles",
+    "permission": " Permission",
+    "promotion": " Promotion",
+    "destinations": "Destinations ",
+    "tour-style": " Tour Style"
+  },
   "Introduction": {
     "title1": "A colorful experience ",
     "title2": "with us in Vietnam"
@@ -129,5 +140,10 @@
     "email": "Email",
     "address": "Address",
     "follow_us": "Follow us"
+  },
+  "Actions": {
+    "title": "Actions",
+    "Update": "Update",
+    "Delete": "Delete"
   }
 }

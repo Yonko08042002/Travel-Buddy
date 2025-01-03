@@ -97,18 +97,17 @@ export function CartList({ carts }: CartListProps) {
               onSubmit={handleSubmit(onSubmit)}
               data-tour-id={cart.id} // Gắn tourId để lấy trong submit handler
               key={cart.id}
-              className="border p-4 rounded-md flex gap-4 items-center"
+              className="w-full border p-4 rounded-md flex gap-4 items-center"
             >
               <img
                 src={cart.image}
                 alt={cart.title}
                 className="w-24 h-24 object-cover rounded-md"
               />
-              <div className="flex justify-between">
-                <div className="flex flex-col gap-2 w-5/6">
-                  {" "}
+              <div className="w-full flex justify-between">
+                <div className=" flex flex-col gap-2 w-5/6">
                   <h3 className="font-semibold text-lg">{cart.title}</h3>
-                  <p className="text-sm text-gray-600">{cart.description}</p>
+                  <p className=" text-sm text-gray-600">{cart.description}</p>
                 </div>
                 <div className="flex flex-col gap-6">
                   <div className="flex items-center gap-4">

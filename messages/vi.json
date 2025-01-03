@@ -34,6 +34,17 @@
     "about_us": "Chúng tôi",
     "membership": "Thành viên"
   },
+  "admin": {
+    "dashboard": " Bảng điều khiển",
+    "blogs": "Bài viết",
+    "tours": "Tours",
+    "users": "Người dùng",
+    "roles": "Vai trò",
+    "permission": " Quyền",
+    "promotion": " Khuyến mãi",
+    "destinations": "Địa điểm ",
+    "tour-style": " Loại tour"
+  },
   "Introduction": {
     "title1": "Trải nghiệm đa sắc",
     "title2": "với tôi tại Việt Nam"
@@ -124,5 +135,10 @@
     "email": "Email",
     "address": "Địa chỉ",
     "follow_us": "Theo dõi chúng tôi"
+  },
+  "Actions": {
+    "title": " Thao tác",
+    "Update": " Cập nhật",
+    "Delete": "Xóa"
   }
 }
