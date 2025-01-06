@@ -1,5 +1,6 @@
 "use client";
 
+import { removeTourFromCart } from "application/use-cases/cart";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
@@ -25,11 +26,12 @@ interface UpdateForm {
 }
 
 export function CartList({ carts }: CartListProps) {
+  const [cartItems, setCartItems] = useState<CartItem[]>(carts);
   const t = useTranslations();
   const [loading, setLoading] = useState<string | null>(null); // Track item đang loading
   const [error, setError] = useState<string | null>(null); // Thông báo lỗi
 
-  if (!carts || carts.length === 0) {
+  if (!cartItems || cartItems.length === 0) {
     return (
       <div className="p-8 text-center">
         <p>Your cart is empty.</p>
@@ -41,9 +43,7 @@ export function CartList({ carts }: CartListProps) {
     const formElement = event?.target as HTMLFormElement;
     const tourId = formElement?.dataset?.tourId;
 
-    if (!tourId) return;
-
-    setLoading(tourId);
+    setLoading(tourId ?? null);
     setError(null);
 
     try {
@@ -63,13 +63,24 @@ export function CartList({ carts }: CartListProps) {
         throw new Error(errorData?.error || "Failed to update cart");
       }
 
-      // Lấy lại dữ liệu từ server (đảm bảo UI hiển thị giá trị chính xác)
       const updatedCartTour = await response.json();
-      carts = carts.map((cart) =>
+      carts = cartItems.map((cart) =>
         cart.id === tourId ? { ...cart, amount: updatedCartTour.amount } : cart
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(null);
+    }
+  };
+  const handleRemoveTour = async (tourId: string) => {
+    setLoading(tourId);
+    setError(null);
+    try {
+      await removeTourFromCart(tourId);
+      setCartItems(cartItems.filter((cart) => cart.id !== tourId));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to remove tour");
     } finally {
       setLoading(null);
     }
@@ -95,7 +106,7 @@ export function CartList({ carts }: CartListProps) {
           return (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              data-tour-id={cart.id} // Gắn tourId để lấy trong submit handler
+              data-tour-id={cart.id}
               key={cart.id}
               className="w-full border p-4 rounded-md flex gap-4 items-center"
             >
@@ -138,6 +149,12 @@ export function CartList({ carts }: CartListProps) {
                   <p className="text-red-500">
                     {t("Cart_tour.price")}: {cart.price} VND
                   </p>
+                  <Button
+                    onClick={() => handleRemoveTour(cart.id ?? "1")}
+                    disabled={loading === cart.id}
+                  >
+                    {t("Actions.Delete")}
+                  </Button>
                   {formState.errors.amount && (
                     <p className="text-sm mt-2 text-red-500">
                       {formState.errors.amount.message}

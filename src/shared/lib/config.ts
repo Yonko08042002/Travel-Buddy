@@ -1,13 +1,13 @@
-import { loadEnvConfig } from '@next/env';
-import { createEnv } from '@t3-oss/env-nextjs';
-import { z } from 'zod';
+import { loadEnvConfig } from "@next/env";
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
 
 const projectDir = process.cwd();
 loadEnvConfig(projectDir);
 
 const config = createEnv({
   client: {
-    NEXT_PUBLIC_APP_URL: z.string().min(1)
+    NEXT_PUBLIC_APP_URL: z.string().min(1),
   },
   server: {
     DATABASE_URL: z.string().min(1),
@@ -19,7 +19,7 @@ const config = createEnv({
     GOOGLE_ID: z.string().min(1),
     GOOGLE_SECRET: z.string().min(1),
     STRIPE_SECRET_KEY: z.string().min(1),
-    STRIPE_WEBHOOK_SECRET: z.string().min(1)
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -32,8 +32,8 @@ const config = createEnv({
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET
-  }
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+  },
 });
 
 export default config;
