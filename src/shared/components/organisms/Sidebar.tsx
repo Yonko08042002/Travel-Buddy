@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import { cn } from "shared/utils/cn";
+import { type JSX, useMemo } from 'react';
+import { cn } from 'shared/utils/cn';
 import {
   Book,
   CircleDollarSign,
@@ -11,13 +11,13 @@ import {
   ShieldCheck,
   TramFront,
   User,
-  Video,
-} from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { UserWithRoles } from "application/use-cases/user";
-import { checkPermission, Permission } from "shared/helpers/permission";
-import { useTranslations } from "next-intl";
+  Video
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { UserWithRoles } from 'application/use-cases/user';
+import { checkPermission, Permission } from 'shared/helpers/permission';
+import { useTranslations } from 'next-intl';
 
 type SidebarItem = {
   icon: JSX.Element;
@@ -32,65 +32,65 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ className, user }: SidebarProps) {
-  const t = useTranslations("admin");
+  const t = useTranslations('admin');
   const pathname = usePathname();
 
   const DEFAULT_SIDEBARS: SidebarItem[] = [
     {
       icon: <LayoutDashboard />,
-      title: t("dashboard"),
-      ref: "",
-      permissions: [],
+      title: t('dashboard'),
+      ref: '',
+      permissions: []
     },
-    { icon: <Video />, title: "video", ref: "/videos", permissions: [] },
+    { icon: <Video />, title: 'video', ref: '/videos', permissions: [] },
     {
       icon: <TramFront />,
-      title: t("tours"),
-      ref: "/tours",
-      permissions: [Permission.ManageTour],
+      title: t('tours'),
+      ref: '/tours',
+      permissions: [Permission.ManageTour]
     },
     {
       icon: <MapPin />,
-      title: t("destinations"),
-      ref: "/destinations",
-      permissions: [],
+      title: t('destinations'),
+      ref: '/destinations',
+      permissions: []
     },
     {
       icon: <Contact />,
-      title: t("roles"),
-      ref: "/roles",
-      permissions: [Permission.ManageRole],
+      title: t('roles'),
+      ref: '/roles',
+      permissions: [Permission.ManageRole]
     },
     {
       icon: <ShieldCheck />,
-      title: t("permission"),
-      ref: "/permissions",
-      permissions: [Permission.ManagePermission],
+      title: t('permission'),
+      ref: '/permissions',
+      permissions: [Permission.ManagePermission]
     },
     {
       icon: <User />,
-      title: t("users"),
-      ref: "/users",
-      permissions: [Permission.ManageUser],
+      title: t('users'),
+      ref: '/users',
+      permissions: [Permission.ManageUser]
     },
     {
       icon: <Book />,
-      title: t("blogs"),
-      ref: "/blogs",
-      permissions: [Permission.ManageBlog],
+      title: t('blogs'),
+      ref: '/blogs',
+      permissions: [Permission.ManageBlog]
     },
     {
       icon: <CircleDollarSign />,
-      title: t("promotion"),
-      ref: "/promotions",
-      permissions: [Permission.ManagePromotion],
+      title: t('promotion'),
+      ref: '/promotions',
+      permissions: [Permission.ManagePromotion]
     },
     {
       icon: <CircleDollarSign />,
-      title: t("tour-style"),
-      ref: "/tour-style",
-      permissions: [Permission.ManageTourStyle],
-    },
+      title: t('tour-style'),
+      ref: '/tour-style',
+      permissions: [Permission.ManageTourStyle]
+    }
   ];
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -103,7 +103,7 @@ export default function Sidebar({ className, user }: SidebarProps) {
   return (
     <nav
       className={cn(
-        "space-y-2 px-3 py-4 border-r border-gray-100 shadow-sm w-72",
+        'space-y-2 px-3 py-4 border-r border-gray-100 shadow-sm w-72',
         className
       )}
     >
@@ -112,11 +112,9 @@ export default function Sidebar({ className, user }: SidebarProps) {
           key={sidebar.title}
           href={`/admin${sidebar.ref}`}
           className={cn(
-            "flex rounded items-center gap-2 py-2 px-4 hover:bg-primary hover:text-white text-gray-500",
+            'flex rounded items-center gap-2 py-2 px-4 hover:bg-primary hover:text-white text-gray-500',
             {
-              "bg-primary text-white": pathname.endsWith(
-                `/admin${sidebar.ref}`
-              ),
+              'bg-primary text-white': pathname.endsWith(`/admin${sidebar.ref}`)
             }
           )}
         >

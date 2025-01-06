@@ -18,10 +18,11 @@ interface UserProps {
   user: UserWithRoles | null;
 }
 export default function CardProfile({ user }: UserProps) {
-  if (!user) {
-    return null;
-  }
   const t = useTranslations();
+  if (!user) {
+    return <p>no user</p>;
+  }
+
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
       case 'admin':

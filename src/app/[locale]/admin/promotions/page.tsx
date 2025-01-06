@@ -1,22 +1,15 @@
-import { getPromotions } from "application/use-cases/promotion";
-import PromotionsBreadcrumb from "presentation/promotions/components/PromotionsBreadcrumb";
-import { PromotionsTable } from "presentation/promotions/containers/PromotionsTable";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "shared/components/atoms/breadcrumb";
+import { getPromotions } from 'application/use-cases/promotion';
+import PromotionsBreadcrumb from 'presentation/promotions/components/PromotionsBreadcrumb';
+import { PromotionsTable } from 'presentation/promotions/containers/PromotionsTable';
 
 export const metadata = {
-  title: "Promotion",
+  title: 'Promotion'
 };
 
 export default async function Promotion() {
   const promotions = await getPromotions();
   return (
-    <section className="w-full">
+    <section className='w-full'>
       <PromotionsBreadcrumb />
       <PromotionsTable data={promotions} />
     </section>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { removeTourFromCart } from "application/use-cases/cart";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { useState } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { Button } from "shared/components/atoms/button";
-import { Input } from "shared/components/atoms/input";
+import { removeTourFromCart } from 'application/use-cases/cart';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { Button } from 'shared/components/atoms/button';
+import { Input } from 'shared/components/atoms/input';
 
 interface CartItem {
   amount: number | null;
@@ -28,12 +28,12 @@ interface UpdateForm {
 export function CartList({ carts }: CartListProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>(carts);
   const t = useTranslations();
-  const [loading, setLoading] = useState<string | null>(null); // Track item đang loading
-  const [error, setError] = useState<string | null>(null); // Thông báo lỗi
+  const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   if (!cartItems || cartItems.length === 0) {
     return (
-      <div className="p-8 text-center">
+      <div className='p-8 text-center'>
         <p>Your cart is empty.</p>
       </div>
     );
@@ -47,20 +47,20 @@ export function CartList({ carts }: CartListProps) {
     setError(null);
 
     try {
-      const response = await fetch("/api/cart", {
-        method: "PATCH",
+      const response = await fetch('/api/cart', {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           tourId,
-          amount: data.amount,
-        }),
+          amount: data.amount
+        })
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData?.error || "Failed to update cart");
+        throw new Error(errorData?.error || 'Failed to update cart');
       }
 
       const updatedCartTour = await response.json();
@@ -68,7 +68,7 @@ export function CartList({ carts }: CartListProps) {
         cart.id === tourId ? { ...cart, amount: updatedCartTour.amount } : cart
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(null);
     }
@@ -80,27 +80,28 @@ export function CartList({ carts }: CartListProps) {
       await removeTourFromCart(tourId);
       setCartItems(cartItems.filter((cart) => cart.id !== tourId));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to remove tour");
+      setError(err instanceof Error ? err.message : 'Failed to remove tour');
     } finally {
       setLoading(null);
     }
   };
 
   return (
-    <div className="h-screen p-8 flex gap-2">
-      <ul className="space-y-4 w-full max-h-[calc(100vh-200px)] overflow-y-auto">
+    <div className='h-screen p-8 flex gap-2'>
+      <ul className='space-y-4 w-full max-h-[calc(100vh-200px)] overflow-y-auto'>
         {carts.map((cart) => {
           const { register, handleSubmit, setValue, getValues, formState } =
+            // biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
             useForm<UpdateForm>({
               defaultValues: {
-                amount: cart.amount || 1,
-              },
+                amount: cart.amount || 1
+              }
             });
 
           const changeAmount = (amountChange: number) => {
-            const currentAmount = getValues("amount");
-            const newAmount = Math.max(1, currentAmount + amountChange); // Đảm bảo giá trị >= 1
-            setValue("amount", newAmount); // Cập nhật giá trị
+            const currentAmount = getValues('amount');
+            const newAmount = Math.max(1, currentAmount + amountChange);
+            setValue('amount', newAmount);
           };
 
           return (
@@ -108,22 +109,22 @@ export function CartList({ carts }: CartListProps) {
               onSubmit={handleSubmit(onSubmit)}
               data-tour-id={cart.id}
               key={cart.id}
-              className="w-full border p-4 rounded-md flex gap-4 items-center"
+              className='w-full border p-4 rounded-md flex gap-4 items-center'
             >
               <img
                 src={cart.image}
                 alt={cart.title}
-                className="w-24 h-24 object-cover rounded-md"
+                className='w-24 h-24 object-cover rounded-md'
               />
-              <div className="w-full flex justify-between">
-                <div className=" flex flex-col gap-2 w-5/6">
-                  <h3 className="font-semibold text-lg">{cart.title}</h3>
-                  <p className=" text-sm text-gray-600">{cart.description}</p>
+              <div className='w-full flex justify-between'>
+                <div className=' flex flex-col gap-2 w-5/6'>
+                  <h3 className='font-semibold text-lg'>{cart.title}</h3>
+                  <p className=' text-sm text-gray-600'>{cart.description}</p>
                 </div>
-                <div className="flex flex-col gap-6">
-                  <div className="flex items-center gap-4">
+                <div className='flex flex-col gap-6'>
+                  <div className='flex items-center gap-4'>
                     <Button
-                      type="submit"
+                      type='submit'
                       onClick={() => changeAmount(-1)}
                       disabled={loading === cart.id} // Disable khi loading
                     >
@@ -131,32 +132,32 @@ export function CartList({ carts }: CartListProps) {
                     </Button>
 
                     <Input
-                      className="w-16 text-center"
-                      id="amount"
-                      {...register("amount", {
+                      className='w-16 text-center'
+                      id='amount'
+                      {...register('amount', {
                         valueAsNumber: true,
-                        required: "Amount is required",
-                        min: { value: 1, message: "Amount must be at least 1" },
+                        required: 'Amount is required',
+                        min: { value: 1, message: 'Amount must be at least 1' }
                       })}
-                      type="number"
+                      type='number'
                       disabled={loading === cart.id}
                     />
 
-                    <Button type="submit" onClick={() => changeAmount(1)}>
+                    <Button type='submit' onClick={() => changeAmount(1)}>
                       +
                     </Button>
                   </div>
-                  <p className="text-red-500">
-                    {t("Cart_tour.price")}: {cart.price} VND
+                  <p className='text-red-500'>
+                    {t('Cart_tour.price')}: {cart.price} VND
                   </p>
                   <Button
-                    onClick={() => handleRemoveTour(cart.id ?? "1")}
+                    onClick={() => handleRemoveTour(cart.id ?? '1')}
                     disabled={loading === cart.id}
                   >
-                    {t("Actions.Delete")}
+                    {t('Actions.Delete')}
                   </Button>
                   {formState.errors.amount && (
-                    <p className="text-sm mt-2 text-red-500">
+                    <p className='text-sm mt-2 text-red-500'>
                       {formState.errors.amount.message}
                     </p>
                   )}
@@ -166,11 +167,11 @@ export function CartList({ carts }: CartListProps) {
           );
         })}
       </ul>
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}{" "}
+      {error && <p className='text-red-500 text-sm text-center'>{error}</p>}{' '}
       {/* Thông báo lỗi */}
-      <div className="text-right mt-4">
-        <Link href="/checkout">
-          <Button>{t("buttonWeb.check_out")}</Button>
+      <div className='text-right mt-4'>
+        <Link href='/checkout'>
+          <Button>{t('buttonWeb.check_out')}</Button>
         </Link>
       </div>
     </div>
