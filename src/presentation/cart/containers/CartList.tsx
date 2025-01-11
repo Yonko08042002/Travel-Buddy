@@ -1,6 +1,6 @@
 'use client';
 
-import { removeTourFromCart } from 'application/use-cases/cart';
+import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -73,21 +73,39 @@ export function CartList({ carts }: CartListProps) {
       setLoading(null);
     }
   };
-  const handleRemoveTour = async (tourId: string) => {
+
+  const removeCartItem = async (tourId: string) => {
     setLoading(tourId);
     setError(null);
     try {
-      await removeTourFromCart(tourId);
-      setCartItems(cartItems.filter((cart) => cart.id !== tourId));
+      const response = await fetch('/api/cart', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tourId })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.error || 'Error.delete_failed');
+      }
+
+      const updatedCartResponse = await fetch('/api/cart', { method: 'GET' });
+
+      if (!updatedCartResponse.ok) {
+        throw new Error('Error.fetch_cart_failed');
+      }
+
+      const updatedCart = await updatedCartResponse.json();
+      setCartItems(updatedCart);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to remove tour');
+      setError(err instanceof Error ? err.message : 'Error.generic');
     } finally {
       setLoading(null);
     }
   };
 
   return (
-    <div className='h-screen p-8 flex gap-2'>
+    <div className='h-screen p-8  flex gap-2'>
       <ul className='space-y-4 w-full max-h-[calc(100vh-200px)] overflow-y-auto'>
         {carts.map((cart) => {
           const { register, handleSubmit, setValue, getValues, formState } =
@@ -109,7 +127,7 @@ export function CartList({ carts }: CartListProps) {
               onSubmit={handleSubmit(onSubmit)}
               data-tour-id={cart.id}
               key={cart.id}
-              className='w-full border p-4 rounded-md flex gap-4 items-center'
+              className='relative w-full border p-4 pr-8 rounded-md flex gap-4 items-center'
             >
               <img
                 src={cart.image}
@@ -126,7 +144,7 @@ export function CartList({ carts }: CartListProps) {
                     <Button
                       type='submit'
                       onClick={() => changeAmount(-1)}
-                      disabled={loading === cart.id} // Disable khi loading
+                      disabled={loading === cart.id}
                     >
                       -
                     </Button>
@@ -151,10 +169,12 @@ export function CartList({ carts }: CartListProps) {
                     {t('Cart_tour.price')}: {cart.price} VND
                   </p>
                   <Button
-                    onClick={() => handleRemoveTour(cart.id ?? '1')}
+                    className='absolute right-0 top-0 border-none p-0 h-max'
+                    variant={'outline'}
+                    onClick={() => removeCartItem(cart.id ?? '')}
                     disabled={loading === cart.id}
                   >
-                    {t('Actions.Delete')}
+                    <X />
                   </Button>
                   {formState.errors.amount && (
                     <p className='text-sm mt-2 text-red-500'>
