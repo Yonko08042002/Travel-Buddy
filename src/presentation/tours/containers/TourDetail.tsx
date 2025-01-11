@@ -1,10 +1,11 @@
 import BookingCard from "../components/BookingCard";
-import { HeartIcon, ShareIcon } from "lucide-react";
+import { Clock, HeartIcon, Plane } from "lucide-react";
 import { Button } from "shared/components/atoms/button";
 import TourReview from "../components/TourReview";
 import type { Tour } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import ReviewTourForm from "presentation/review/components/ReviewTourForm";
+import ShareButton from "../components/ShareButton";
 
 interface TourDetailProps {
   tour: Tour;
@@ -18,10 +19,7 @@ export default function TourDetail({ tour }: TourDetailProps) {
         {" "}
         <h1 className="text-xl lg:text-3xl font-bold">{tour?.title}</h1>
         <div className="flex space-x-4">
-          <Button variant="outline" size="sm">
-            <ShareIcon className="h-4 w-4 mr-2" />
-            Chia sẻ
-          </Button>
+          <ShareButton />
           <Button variant="outline" size="sm">
             <HeartIcon className="h-4 w-4 mr-2" />
             Lưu
@@ -43,6 +41,19 @@ export default function TourDetail({ tour }: TourDetailProps) {
             {t("Cart_tour.Detail_of")} {tour.title}
           </h1>
           <p className="text-sm lg:text-lg ">{tour.description}</p>
+          <div className="flex items-center gap-2 text-gray-600 mb-2">
+            <Clock className="w-4 h-4" />
+            <span className="">
+              {tour.duration} {t("Cart_tour.day")} -
+            </span>
+            <Plane className="w-4 h-4" />
+            <span className="">
+              {tour.timeStart
+                ? new Date(tour.timeStart).toLocaleString()
+                : "N/A"}
+            </span>
+          </div>
+
           <TourReview tour={tour} />
           <ReviewTourForm tourId={tour.id} />
         </div>

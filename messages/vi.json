@@ -83,7 +83,8 @@
     "price": "Giá",
     "Detail_of": "Chi tiết",
     "Note": "Giá có thể thay đổi tùy theo mùa",
-    "Total": "Tổng"
+    "Total": "Tổng",
+    "day": "ngày"
   },
   "Profile": {
     "title": "Thông tin cá nhân",
@@ -118,6 +119,7 @@
   },
   "review": {
     "title": "Gửi đánh giá của bạn",
+    "title1": "Được khách yêu thích nhất",
     "description": "Khách đánh giá đây là một trong những địa điểm phổ biến nhất trên Buddy",
     "view_more": "Xem thêm",
     "Comment": "Nhận xét",

@@ -87,7 +87,8 @@
     "Detail_of": "Detail of",
     "Note": "*Prices may vary depending on the season.",
     "price": " Price",
-    "total": "Total"
+    "total": "Total",
+    "day": "day"
   },
   "Profile": {
     "title": "User Profile",
@@ -123,6 +124,7 @@
   },
   "review": {
     "title": "Submit Your Review",
+    "title1": "Most loved by customers",
     "description": "Guests rate this as one of the most popular locations on Buddy",
     "view_more": "View more",
     "Comment": " Comment",

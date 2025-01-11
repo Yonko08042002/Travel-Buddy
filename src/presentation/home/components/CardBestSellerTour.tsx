@@ -1,5 +1,11 @@
 import type { Tour } from "@prisma/client";
-import { ArrowRight, CircleDollarSign, Clock, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  CircleDollarSign,
+  Clock,
+  MapPin,
+  Route,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Badge } from "shared/components/atoms/badge";
@@ -41,24 +47,18 @@ export default function CardBestSellerTour({ tour }: TourCardProps) {
           <h4 className="text-xl font-semibold mb-2">{tour.title}</h4>
           <div className="flex items-center gap-2 text-gray-600 mb-2">
             <Clock className="w-4 h-4" />
-            <span className="text-sm">{tour.duration}</span>
+            <span className="text-sm">
+              {tour.duration} {t("Cart_tour.day")}
+            </span>
           </div>
           <div className="flex items-start gap-2 text-gray-600 mb-4">
-            <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
-            <span className="text-sm">locations</span>
+            <Route className="w-4 h-4 mt-1 flex-shrink-0 " />
+            <span className="text-sm">{tour.description}</span>
           </div>
           <div className="flex flex-col ">
-            <div className="flex items-center gap-2 text-gray-600 mb-2">
-              <CircleDollarSign className="w-4 h-4 mt-1 flex-shrink-0" />{" "}
-              <span className="text-sm line-through">
-                {" "}
-                {tour.price + tour.price / 4}
-              </span>
-            </div>
-
             <div className="flex items-center gap-2  mb-2">
-              <p className="text-xl font-bold text-red-500 ">
-                {tour.price}
+              <p className="text-xl font-bold text-primary ">
+                {tour.price} VND
                 <span className="text-sm text-gray-600">
                   /{t("Cart_tour.pax")}
                 </span>

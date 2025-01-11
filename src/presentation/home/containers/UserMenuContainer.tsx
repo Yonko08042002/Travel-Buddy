@@ -65,7 +65,7 @@ const UserMenuContainer = () => {
   return (
     <div className="flex gap-1 lg:gap-8 items-center">
       <Link className="relative border-[2px] rounded-md p-1" href="/cart">
-        <span className="absolute text-white bg-red-500 rounded-full size-5 flex justify-center items-center top-[-12px] right-[-10px] text-xs">
+        <span className="absolute text-white bg-primary  rounded-full size-5 flex justify-center items-center top-[-12px] right-[-10px] text-xs">
           {carts.length}
         </span>
         <SizeGoods />
