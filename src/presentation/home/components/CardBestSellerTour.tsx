@@ -1,11 +1,5 @@
 import type { Tour } from "@prisma/client";
-import {
-  ArrowRight,
-  CircleDollarSign,
-  Clock,
-  MapPin,
-  Route,
-} from "lucide-react";
+import { ArrowRight, Clock, Route } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Badge } from "shared/components/atoms/badge";
