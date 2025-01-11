@@ -25,3 +25,14 @@ export const getPurchaseByIdUser = async (UserId: string) => {
     throw new Error('Failed to retrieve purchase');
   }
 };
+
+export const getAllPurchases = async () => {
+  const purchaseRepository = getInjection('IPurchaseRepository');
+  try {
+    const purchases = await purchaseRepository.getAll();
+    return purchases;
+  } catch (error) {
+    console.error('Error retrieving purchases:', error);
+    throw new Error('Failed to retrieve purchases');
+  }
+};

@@ -143,9 +143,11 @@ export default function UpsertTourForm({
           </Label>
           <div className='col-span-3'>
             <Input
+              defaultValue={defaultValues?.timeStart?.toISOString()}
               id='startTime'
               {...register('timeStart')}
               type='datetime-local'
+              min={new Date().toISOString().slice(0, 16)}
             />
             {errors.timeStart && (
               <p className='text-sm mt-2 text-red-500'>

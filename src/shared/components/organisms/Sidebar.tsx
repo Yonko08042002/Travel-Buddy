@@ -5,6 +5,7 @@ import { cn } from 'shared/utils/cn';
 import {
   Book,
   CircleDollarSign,
+  Compass,
   Contact,
   LayoutDashboard,
   MapPin,
@@ -86,7 +87,7 @@ export default function Sidebar({ className, user }: SidebarProps) {
       permissions: [Permission.ManagePromotion]
     },
     {
-      icon: <CircleDollarSign />,
+      icon: <Compass />,
       title: t('tour-style'),
       ref: '/tour-style',
       permissions: [Permission.ManageTourStyle]

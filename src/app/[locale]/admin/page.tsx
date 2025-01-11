@@ -1,26 +1,47 @@
-import { useTranslations } from "next-intl";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "shared/components/atoms/breadcrumb";
+import { getAllPurchases } from 'application/use-cases/purchase';
+import { getTourById } from 'application/use-cases/tour';
+import { getUserById } from 'application/use-cases/user';
+import DashboardBreadcrumb from 'presentation/dashboard/components/DashboardBreadcrumb';
+import DashboardListLabel from 'presentation/dashboard/components/DashboardListLabel';
+import DashboardTable from 'presentation/dashboard/container/DashboardTable';
 
 export const metadata = {
-  title: "Admin",
+  title: 'Admin'
 };
+async function fetchReviews() {
+  const sales = await getAllPurchases();
 
-export default function AdminPage() {
-  const t = useTranslations("admin");
+  if (!sales) {
+    throw new Error('No sales found');
+  }
+
+  const listSale = await Promise.all(
+    sales.map(async (sale) => {
+      const user = await getUserById(sale.userId);
+      const tour = await getTourById(sale.tourId);
+      if (!tour) {
+        throw new Error('No tour found');
+      }
+      return {
+        title: tour?.title,
+        avatar: user?.avatar,
+        email: user?.email,
+        price: tour.price,
+        ...sale
+      };
+    })
+  );
+
+  return listSale;
+}
+export default async function AdminPage() {
+  const listSale = await fetchReviews();
+
   return (
     <section>
-      <Breadcrumb className="mb-4">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/admin"> {t("dashboard")}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <DashboardBreadcrumb />
+      <DashboardListLabel />
+      <DashboardTable sales={listSale} />
     </section>
   );
 }

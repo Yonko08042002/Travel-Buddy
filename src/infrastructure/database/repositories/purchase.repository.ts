@@ -21,4 +21,8 @@ export class PurchaseRepository implements IPurchaseRepository {
       }
     });
   }
+
+  getAll() {
+    return prisma.purchase.findMany();
+  }
 }
