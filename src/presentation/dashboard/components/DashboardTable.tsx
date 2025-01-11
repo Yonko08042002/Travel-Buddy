@@ -38,12 +38,14 @@ export default function DashboardTable({ sales }: SaleProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Email user</TableHead>
-              <TableHead>Title Tour</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead className='text-center'>Amount</TableHead>
-              <TableHead className='text-right'>Total</TableHead>
+              <TableHead className='font-semibold'>Email user</TableHead>
+              <TableHead className='font-semibold'>Title Tour</TableHead>
+              <TableHead className='font-semibold'>Date</TableHead>
+              <TableHead className='font-semibold'>Price</TableHead>
+              <TableHead className='font-semibold text-center'>
+                Amount
+              </TableHead>
+              <TableHead className='font-semibold text-right'>Total</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -69,7 +71,9 @@ export default function DashboardTable({ sales }: SaleProps) {
       <Table>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell className='text-primary' colSpan={3}>
+              Total
+            </TableCell>
             <TableCell className='text-right'>{totalAmount} VND</TableCell>
           </TableRow>
         </TableFooter>

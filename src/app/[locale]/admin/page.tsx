@@ -1,14 +1,15 @@
 import { getAllPurchases } from 'application/use-cases/purchase';
 import { getTourById } from 'application/use-cases/tour';
-import { getUserById } from 'application/use-cases/user';
+import { getUser, getUserById } from 'application/use-cases/user';
 import DashboardBreadcrumb from 'presentation/dashboard/components/DashboardBreadcrumb';
 import DashboardListLabel from 'presentation/dashboard/components/DashboardListLabel';
-import DashboardTable from 'presentation/dashboard/container/DashboardTable';
+import DashboardTab from 'presentation/dashboard/container/DashboardTab';
+import DashboardTable from 'presentation/dashboard/components/DashboardTable';
 
 export const metadata = {
   title: 'Admin'
 };
-async function fetchReviews() {
+async function fetchSales() {
   const sales = await getAllPurchases();
 
   if (!sales) {
@@ -34,14 +35,17 @@ async function fetchReviews() {
 
   return listSale;
 }
+
 export default async function AdminPage() {
-  const listSale = await fetchReviews();
+  const users = await getUser();
+  const listSale = await fetchSales();
 
   return (
     <section>
       <DashboardBreadcrumb />
-      <DashboardListLabel />
-      <DashboardTable sales={listSale} />
+
+      <DashboardListLabel sales={listSale} users={users} />
+      <DashboardTab sales={listSale} />
     </section>
   );
 }
