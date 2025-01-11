@@ -1,19 +1,18 @@
-import { getAllPurchases } from 'application/use-cases/purchase';
-import { getTourById } from 'application/use-cases/tour';
-import { getUser, getUserById } from 'application/use-cases/user';
-import DashboardBreadcrumb from 'presentation/dashboard/components/DashboardBreadcrumb';
-import DashboardListLabel from 'presentation/dashboard/components/DashboardListLabel';
-import DashboardTab from 'presentation/dashboard/container/DashboardTab';
-import DashboardTable from 'presentation/dashboard/components/DashboardTable';
+import { getAllPurchases } from "application/use-cases/purchase";
+import { getTourById } from "application/use-cases/tour";
+import { getUser, getUserById } from "application/use-cases/user";
+import DashboardBreadcrumb from "presentation/dashboard/components/DashboardBreadcrumb";
+import DashboardListLabel from "presentation/dashboard/components/DashboardListLabel";
+import DashboardTab from "presentation/dashboard/container/DashboardTab";
 
 export const metadata = {
-  title: 'Admin'
+  title: "Admin",
 };
 async function fetchSales() {
   const sales = await getAllPurchases();
 
   if (!sales) {
-    throw new Error('No sales found');
+    throw new Error("No sales found");
   }
 
   const listSale = await Promise.all(
@@ -21,14 +20,14 @@ async function fetchSales() {
       const user = await getUserById(sale.userId);
       const tour = await getTourById(sale.tourId);
       if (!tour) {
-        throw new Error('No tour found');
+        throw new Error("No tour found");
       }
       return {
         title: tour?.title,
         avatar: user?.avatar,
         email: user?.email,
         price: tour.price,
-        ...sale
+        ...sale,
       };
     })
   );
