@@ -66,7 +66,10 @@ export const ToursTable = ({ data }: ToursTableProps) => {
     },
     {
       accessorKey: 'price',
-      header: 'PRICE'
+      header: 'PRICE',
+      cell: ({ row }) => {
+        return <div>{row.original.price.toLocaleString('vi-VN')} VND</div>;
+      }
     },
     {
       accessorKey: 'timeStart',

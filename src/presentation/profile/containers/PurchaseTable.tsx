@@ -1,12 +1,8 @@
-import type { ColumnDef } from "@tanstack/react-table";
-import { getPurchaseByIdUser } from "application/use-cases/purchase";
-import { getTourById } from "application/use-cases/tour";
-import type { UserWithRoles } from "application/use-cases/user";
-import { DataTable } from "shared/components/molecules/DataTable";
-
-interface UserProps {
-  user: UserWithRoles | null;
-}
+'use client';
+import type { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown } from 'lucide-react';
+import { Button } from 'shared/components/atoms/button';
+import { DataTable } from 'shared/components/molecules/DataTable';
 
 interface PurchaseWithTour {
   id?: string;
@@ -21,57 +17,56 @@ interface PurchaseWithTour {
   createdAt: Date;
 }
 
-export default async function PurchaseTable({ user }: UserProps) {
-  if (!user) {
-    return null;
-  }
-
-  const purchases = await getPurchaseByIdUser(user.id);
-  if (!purchases || purchases.length === 0) {
-    return <div>No purchases found.</div>;
-  }
-
-  const listPurchase: PurchaseWithTour[] = await Promise.all(
-    purchases.map(async (purchase) => {
-      const tour = await getTourById(purchase.tourId);
-      return {
-        ...tour,
-        amount: purchase.amount,
-        createdAt: purchase.createdAt,
-      };
-    })
-  );
-
+type PurchaseProg = {
+  data: PurchaseWithTour[];
+};
+export default function PurchaseTable({ data }: PurchaseProg) {
   const columns: ColumnDef<PurchaseWithTour>[] = [
     {
-      accessorKey: "title",
-      header: "Tên tour",
+      accessorKey: 'title',
+      header: 'Tên tour'
     },
-    // {
-    //   accessorKey: "image",
-    //   header: "Anh",
-    // },
-    {
-      accessorKey: "timeStart",
-      header: "Ngày đi",
-    },
-    {
-      accessorKey: "amount",
-      header: "Số lượng",
-    },
-    {
-      accessorKey: "price",
-      header: "Giá",
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Ngày thanh toán",
-    },
-  ];
 
-  return (
-    <div className="w-full ">
-      <DataTable columns={columns} data={listPurchase} searchKey="title" />
-    </div>
-  );
+    {
+      accessorKey: 'timeStart',
+      header: ({ column }) => (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Ngày đi
+          <ArrowUpDown />
+        </Button>
+      ),
+      cell: ({ getValue }) => {
+        const date = getValue() as Date | null;
+        return date
+          ? new Intl.DateTimeFormat('vi-VN', {
+              dateStyle: 'short',
+              timeStyle: 'short'
+            }).format(new Date(date))
+          : '-';
+      }
+    },
+    {
+      accessorKey: 'amount',
+      header: 'Số lượng'
+    },
+    {
+      accessorKey: 'price',
+      header: 'Giá'
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Ngày thanh toán',
+      cell: ({ getValue }) => {
+        const date = getValue() as Date;
+        return new Intl.DateTimeFormat('vi-VN', {
+          dateStyle: 'short',
+          timeStyle: 'medium'
+        }).format(new Date(date));
+      }
+    }
+  ];
+  return <DataTable columns={columns} data={data} searchKey='title' />;
 }

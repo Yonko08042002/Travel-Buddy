@@ -57,11 +57,10 @@ export default function DashboardTable({ sales }: SaleProps) {
                 <TableCell>
                   {new Date(item.createdAt).toLocaleDateString()}
                 </TableCell>
-                <TableCell>{item.price} VND</TableCell>
+                <TableCell>{item.price.toLocaleString('vi-VN')} VND</TableCell>
                 <TableCell className='text-center'>{item.amount}</TableCell>
-
                 <TableCell className='text-right'>
-                  {item.amount * item.price} VND
+                  {(item.amount * item.price).toLocaleString('vi-VN')} VND
                 </TableCell>
               </TableRow>
             ))}
@@ -74,7 +73,9 @@ export default function DashboardTable({ sales }: SaleProps) {
             <TableCell className='text-primary' colSpan={3}>
               Total
             </TableCell>
-            <TableCell className='text-right'>{totalAmount} VND</TableCell>
+            <TableCell className='text-right'>
+              {totalAmount.toLocaleString('vi-VN')} VND
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>

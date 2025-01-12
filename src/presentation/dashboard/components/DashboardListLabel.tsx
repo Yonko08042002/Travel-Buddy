@@ -42,7 +42,10 @@ export default function DashboardListLabel({ sales, users }: DashboardProps) {
           <DollarSign className='h-4 w-4 text-white' />
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold text-white'> {totalPrice} VND</div>
+          <div className='text-2xl font-bold text-white'>
+            {' '}
+            {totalPrice.toLocaleString('vi-VN')} VND
+          </div>
         </CardContent>
       </Card>
       <Card className='bg-primary border-0'>

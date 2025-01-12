@@ -166,7 +166,8 @@ export function CartList({ carts }: CartListProps) {
                     </Button>
                   </div>
                   <p className='text-red-500'>
-                    {t('Cart_tour.price')}: {cart.price} VND
+                    {t('Cart_tour.price')}: {cart.price?.toLocaleString('VND')}{' '}
+                    VND
                   </p>
                   <Button
                     className='absolute right-0 top-0 border-none p-0 h-max'
@@ -188,7 +189,6 @@ export function CartList({ carts }: CartListProps) {
         })}
       </ul>
       {error && <p className='text-red-500 text-sm text-center'>{error}</p>}{' '}
-      {/* Thông báo lỗi */}
       <div className='text-right mt-4'>
         <Link href='/checkout'>
           <Button>{t('buttonWeb.check_out')}</Button>
